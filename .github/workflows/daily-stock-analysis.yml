@@ -1,0 +1,115 @@
+name: Daily Stock Analysis
+
+on:
+  schedule:
+    # 每天下午6点 (UTC 10:00, 北京时间18:00)
+    - cron: '0 10 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  stock-analysis:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Detect best mootdx IP
+      run: |
+        echo "检测mootdx最佳服务器IP..."
+        python -m mootdx bestip -vv || echo "mootdx IP检测失败，继续执行"
+      continue-on-error: true
+
+    - name: Create data directory
+      run: mkdir -p data
+
+    - name: Run fetch_kline
+      run: |
+        echo "开始执行 fetch_kline..."
+        python fetch_kline.py --datasource akshare --out ./data
+      continue-on-error: false
+
+    - name: Run select_stock
+      run: |
+        echo "开始执行 select_stock..."
+        python select_stock.py --data-dir ./data --config ./configs.json > stock_results.txt 2>&1
+        cat stock_results.txt
+      continue-on-error: false
+
+    - name: Generate HTML report
+      run: |
+        echo "生成HTML报告..."
+        python generate_html.py
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+
+    - name: List generated files
+      run: |
+        echo "=== 生成的文件列表 ==="
+        echo "根目录HTML文件:"
+        ls -la *.html || echo "没有找到HTML文件"
+        echo ""
+        echo "reports目录HTML文件:"
+        ls -la reports/*.html || echo "没有找到reports目录中的HTML文件"
+        echo ""
+        echo "=== 检查文件内容 ==="
+        if [ -f "index.html" ]; then
+          echo "index.html exists ($(wc -c < index.html) bytes)"
+        fi
+        if [ -d "reports" ]; then
+          for file in reports/report-*.html; do
+            if [ -f "$file" ]; then
+              echo "$file exists ($(wc -c < "$file") bytes)"
+            fi
+          done
+        fi
+
+    - name: Upload to GitHub Pages
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: .
+
+    - name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v2
+
+    - name: Commit results (if any changes)
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # 添加生成的文件和目录
+        git add index.html
+        git add reports/
+        git add stock_info_cache.json
+        git add -A
+        
+        # 检查是否有变更
+        if git diff --staged --quiet; then
+          echo "没有需要提交的变更"
+        else
+          git commit -m "🤖 Daily stock analysis - $(date +'%Y-%m-%d %H:%M:%S')"
+          git push
+        fi

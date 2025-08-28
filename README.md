@@ -1,12 +1,13 @@
 # Z哥战法的Python实现
 
-> **更新时间：2025-07-03** – 增加填坑战法。
+> **更新时间：2025-08-28** – 增加 GitHub Actions 自动化部署，每日自动选股并发布到 GitHub Pages。
 
 ---
 
 ## 目录
 
 * [项目简介](#项目简介)
+* [GitHub Actions 自动化](#github-actions-自动化)
 * [快速上手](#快速上手)
 
   * [安装依赖](#安装依赖)
@@ -44,6 +45,65 @@
 * **PeakKDJSelector**（填坑战法）
 * **BBIShortLongSelector**（补票战法）
 * **BreakoutVolumeKDJSelector**（TePu 战法）
+
+---
+
+## GitHub Actions 自动化
+
+本项目已配置 GitHub Actions 工作流，可实现每日自动选股并发布结果到 GitHub Pages。
+
+### ✨ 功能特性
+
+- 🕕 **每日定时执行**：北京时间下午6点自动运行
+- 📊 **自动数据获取**：执行 `fetch_kline.py` 获取最新股价数据
+- 🎯 **智能选股**：运行 `select_stock.py` 基于配置的策略自动选股
+- 📈 **精美报告**：生成现代化设计的 HTML 可视化报告
+  - 🎨 **战法卡片**：每个战法独立展示，不同颜色和图标
+  - 📱 **响应式设计**：支持手机、平板、电脑完美显示
+  - 🔍 **股票详情**：显示股票代码、名称、行业、市场信息
+  - 🏢 **行业分布**：自动统计和显示各战法的行业分布情况
+  - 📊 **统计面板**：一目了然的策略和股票统计
+  - 🔗 **便捷链接**：点击股票卡片直接跳转雪球查看
+- 📅 **历史记录**：保留最近一周的选股记录，可切换查看
+- 🌐 **自动发布**：将结果自动发布到 GitHub Pages
+- 🤖 **手动触发**：支持在 GitHub Actions 页面手动运行
+
+### 🚀 快速启用
+
+1. **启用 GitHub Pages**
+   - 进入仓库 Settings → Pages
+   - Source 选择 "GitHub Actions"
+   - 保存设置
+
+2. **配置权限**
+   - 进入 Settings → Actions → General
+   - 确保 "Workflow permissions" 设置为 "Read and write permissions"
+
+3. **手动测试**（可选）
+   - 进入 Actions → "Daily Stock Analysis"
+   - 点击 "Run workflow" 手动触发一次测试
+
+4. **访问结果**
+   - 访问 `https://你的用户名.github.io/StockTradebyZ` 查看选股结果
+
+### 📋 工作流说明
+
+工作流文件位置：`.github/workflows/daily-stock-analysis.yml`
+
+**执行步骤**：
+1. 设置 Python 环境并安装依赖
+2. **Mootdx IP 检测**：`python -m mootdx bestip -vv`（提升连接稳定性）
+3. 执行 `fetch_kline.py --datasource akshare` 获取股价数据
+4. **多数据源股票信息缓存**：根据指定数据源获取股票名称、行业等
+5. 运行 `select_stock.py` 执行所有策略的选股
+6. 生成今日选股报告（`reports/report-YYYY-MM-DD.html`）
+7. 更新首页和历史记录索引（`index.html`）
+8. 自动清理 `reports/` 目录中超过一周的旧报告
+9. 发布到 GitHub Pages
+
+**自动触发条件**：
+- 每日北京时间18:00（UTC 10:00）
+- 也可在 Actions 页面手动触发
 
 ---
 
@@ -85,16 +145,55 @@ pip install --upgrade cffi
    ts_token = "***"  # ← 替换为你的 Token
    ```
 
+### 数据源选择建议
+
+**推荐优先级**：TuShare > AkShare > Mootdx
+
+1. **TuShare**（推荐）
+   - ✅ 数据质量高，更新及时
+   - ✅ 完整的股票名称和行业分类
+   - ✅ 专业金融数据服务
+   - ⚠️ 需要注册并获取token
+
+2. **AkShare**（备选）
+   - ✅ 功能丰富，免费使用
+   - ✅ 股票名称和行业信息完整
+   - ⚠️ 请求频率限制较严格
+
+3. **Mootdx**（应急）
+   - ✅ 完全免费，无需注册
+   - ✅ 支持离线数据批量初始化股票信息
+   - ⚠️ 数据是未复权数据，影响选股精度
+   - ⚠️ 行业信息缺失（仅提供股票名称）
+
 ### Mootdx 运行前置步骤
 
-**注意，Mootdx 下载的数据是未复权数据，会使选股结果存在偏差，请尽量使用 Tushare**
-使用 **Mootdx** 数据源前，需先探测最快行情服务器一次：
+使用 **Mootdx** 数据源前，需先探测最快行情服务器：
 
 ```bash
 python -m mootdx bestip -vv
 ```
 
-脚本将保存最佳 IP，后续抓取更稳定。
+脚本将保存最佳 IP，提升后续抓取稳定性。GitHub Actions 会自动执行此步骤。
+
+**Mootdx 离线数据初始化**（推荐）：
+
+```bash
+# 使用mootdx离线数据批量初始化股票信息缓存
+python init_stock_cache.py --datasource mootdx
+
+# 强制重新初始化（清空现有缓存）
+python init_stock_cache.py --datasource mootdx --force
+
+# 测试mootdx离线初始化功能
+python stock_info_cache.py init_mootdx
+```
+
+**离线初始化优势**：
+- 🚀 **快速批量**：一次性获取全市场股票基本信息
+- 📡 **离线获取**：无需逐个请求，大大提升效率
+- 🏢 **完整覆盖**：包含上交所、深交所所有股票
+- 💾 **自动缓存**：初始化后长期有效，减少网络请求
 
 ### 下载历史行情
 
@@ -130,6 +229,76 @@ python select_stock.py \
 符合条件股票数: 2
 600690, 000333
 ```
+
+### 生成HTML报告
+
+运行选股后，可以生成精美的HTML报告：
+
+```bash
+# 生成HTML报告
+python generate_html.py
+
+# 或本地测试（使用模拟数据）
+python test_html_generation.py
+
+# 测试不同数据源
+python test_html_generation.py tushare
+python test_html_generation.py mootdx
+```
+
+生成的文件：
+- `index.html` - 首页，可选择查看不同日期的报告
+- `reports/report-YYYY-MM-DD.html` - 每日选股报告，包含各战法的卡片展示
+
+### 股票信息缓存
+
+项目支持多数据源获取股票基本信息（名称、行业、市场），自动缓存避免重复获取：
+
+```bash
+# 使用不同数据源更新缓存
+python -c "from stock_info_cache import StockInfoCache; cache = StockInfoCache(datasource='akshare'); cache.batch_update(['000001', '600000'])"
+python -c "from stock_info_cache import StockInfoCache; cache = StockInfoCache(datasource='tushare'); cache.batch_update(['000001', '600000'])"
+
+# 查看缓存统计
+python -c "from stock_info_cache import StockInfoCache; cache = StockInfoCache(); print('缓存股票数量:', len(cache.cache)); print('行业分布:', cache.get_industry_stats())"
+
+# 设置默认数据源
+python get_datasource.py akshare  # 设置为akshare
+python get_datasource.py         # 查看当前数据源
+```
+
+**多数据源支持**：
+- 🔸 **AkShare**：功能最全，支持股票名称和详细行业分类
+- 🔹 **TuShare**：专业金融数据，需要token，提供规范的行业分类  
+- 🔶 **Mootdx**：开源免费，支持离线批量初始化，仅提供股票名称
+
+**缓存特性**：
+- 📂 **本地存储**：缓存保存在 `stock_info_cache.json` 文件
+- 🔄 **增量更新**：只获取新股票的信息，已缓存的直接使用
+- ⏰ **自动过期**：30天后自动清理过期数据
+- 🛡️ **错误处理**：获取失败时使用默认信息，不影响主流程
+- 🔀 **多源兼容**：自动根据运行时数据源获取信息
+
+### HTML文件管理
+
+为了便于管理和清理，所有HTML报告文件都统一存储在 `reports/` 目录中：
+
+```bash
+# 查看所有生成的报告
+ls -la reports/
+
+# 手动清理旧报告（保留最近7天）
+python -c "from generate_html import cleanup_old_reports; cleanup_old_reports()"
+
+# 完全清理所有HTML文件
+rm -rf reports/
+```
+
+**目录结构优势**：
+- 🗂️ **统一管理**：所有历史报告集中在一个目录
+- 🧹 **便于清理**：可以一次性删除整个reports目录
+- 📁 **结构清晰**：根目录只有首页，报告文件分离存储
+- 🚀 **自动维护**：超过一周的旧报告自动清理
 
 ---
 
@@ -230,14 +399,27 @@ python select_stock.py \
 
 ```
 .
-├── appendix.json            # 附加股票池
-├── configs.json             # Selector 配置
-├── fetch_kline.py           # 行情抓取脚本
-├── select_stock.py          # 批量选股脚本
-├── Selector.py              # 策略实现
-├── data/                    # CSV 数据输出目录
-├── fetch.log                # 抓取日志
-└── select_results.log       # 选股日志
+├── .github/
+│   └── workflows/
+│       └── daily-stock-analysis.yml  # GitHub Actions 工作流
+├── appendix.json                     # 附加股票池
+├── configs.json                      # Selector 配置
+├── fetch_kline.py                    # 行情抓取脚本
+├── select_stock.py                   # 批量选股脚本
+├── Selector.py                       # 策略实现
+├── generate_html.py                  # HTML 报告生成脚本
+├── stock_info_cache.py               # 股票信息缓存模块
+├── get_datasource.py                 # 数据源配置管理工具
+├── init_stock_cache.py               # 股票信息缓存初始化脚本
+├── test_html_generation.py           # HTML 生成测试脚本
+├── data/                             # CSV 数据输出目录
+├── reports/                          # HTML 报告输出目录
+│   └── report-YYYY-MM-DD.html       # 每日选股报告
+├── index.html                        # 首页（日期选择器）
+├── stock_info_cache.json            # 股票信息缓存文件
+├── datasource_config.json           # 数据源配置文件
+├── fetch.log                         # 抓取日志
+└── select_results.log                # 选股日志
 ```
 
 ---
