@@ -127,7 +127,7 @@ def main():
             continue
 
         picks = selector.select(trade_date, data)
-
+        #
         # 将结果写入日志，同时输出到控制台
         logger.info("")
         logger.info("============== 选股结果 [%s] ==============", alias)
