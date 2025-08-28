@@ -1,0 +1,21 @@
+# 开发环境覆盖配置
+services:
+  stock-trader-scheduler:
+    # 开发模式下挂载源代码，支持热更新
+    volumes:
+      - .:/app
+      - ./logs:/app/logs
+      - ./cache:/app/cache
+    # 可以覆盖命令进行调试
+    # command: ["python", "scheduler.py", "--run-now"]
+    # 或者进入交互模式
+    # command: ["bash"]
+    # stdin_open: true
+    # tty: true
+  
+  stock-trader-web:
+    # 开发模式下挂载源代码，支持热更新
+    volumes:
+      - .:/app
+      - ./logs:/app/logs
+      - ./cache:/app/cache:ro

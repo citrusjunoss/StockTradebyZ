@@ -1,0 +1,60 @@
+services:
+  # 定时任务调度器
+  stock-trader-scheduler:
+    build: .
+    container_name: stock-trader-scheduler
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+      - PYTHONUNBUFFERED=1
+    command: ["scheduler"]
+    volumes:
+      - ./cache:/app/cache
+      - ./logs:/app/logs
+      - ./data:/app/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Web服务器
+  stock-trader-web:
+    build: .
+    container_name: stock-trader-web
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8080:8080"
+    command: ["web"]
+    depends_on:
+      - stock-trader-scheduler
+    volumes:
+      - ./cache:/app/cache
+      - ./logs:/app/logs
+      - ./data:/app/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # 一次性运行服务（用于测试）
+  stock-trader-once:
+    build: .
+    container_name: stock-trader-once
+    environment:
+      - TZ=Asia/Shanghai
+      - PYTHONUNBUFFERED=1
+    command: ["once"]
+    volumes:
+      - ./cache:/app/cache
+      - ./logs:/app/logs
+      - ./data:/app/data
+    profiles: ["manual"]  # 需要手动启动
+
+networks:
+  default:
+    name: stock-trader-network

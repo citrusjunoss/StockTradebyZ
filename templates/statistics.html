@@ -1,0 +1,284 @@
+{% extends "base.html" %}
+
+{% block title %}统计分析 - 股票选择系统{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h1 class="display-6 text-center mb-4">
+            <i class="fas fa-chart-bar me-3"></i>
+            统计分析
+        </h1>
+    </div>
+</div>
+
+<!-- 系统统计 -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    系统统计信息
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="text-center">
+                            <h4 class="text-primary">{{ system_stats.total_records }}</h4>
+                            <small class="text-muted">总记录数</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="text-center">
+                            <h4 class="text-success">{{ system_stats.unique_dates }}</h4>
+                            <small class="text-muted">执行天数</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="text-center">
+                            <h4 class="text-info">{{ system_stats.unique_selectors }}</h4>
+                            <small class="text-muted">选择器数量</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="text-center">
+                            <h4 class="text-warning">{{ system_stats.database_size_mb }}</h4>
+                            <small class="text-muted">数据库大小(MB)</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="text-center">
+                            <h4 class="text-secondary">{{ system_stats.earliest_date }}</h4>
+                            <small class="text-muted">最早日期</small>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="text-center">
+                            <h4 class="text-dark">{{ system_stats.latest_date }}</h4>
+                            <small class="text-muted">最新日期</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 最近执行摘要 -->
+{% if execution_summary %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-calendar-week me-2"></i>
+                    最近7天执行摘要
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>选择器数量</th>
+                                <th>选中股票总数</th>
+                                <th>平均执行时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for summary in execution_summary %}
+                            <tr>
+                                <td>
+                                    <strong>{{ summary.date }}</strong>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info">{{ summary.selector_count }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success">{{ summary.total_stocks }}</span>
+                                </td>
+                                <td>
+                                    <span class="execution-time">{{ "%.3f"|format(summary.avg_execution_time) }}s</span>
+                                </td>
+                                <td>
+                                    <a href="/?date={{ summary.date }}" class="btn btn-sm btn-outline-primary">
+                                        查看详情
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- 选择器性能分析 -->
+{% if selector_performance %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-tachometer-alt me-2"></i>
+                    选择器性能分析
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>选择器名称</th>
+                                <th>执行次数</th>
+                                <th>平均选中股票</th>
+                                <th>最多选中股票</th>
+                                <th>平均执行时间</th>
+                                <th>最后执行日期</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for perf in selector_performance %}
+                            <tr>
+                                <td>
+                                    <strong>{{ perf.selector_name }}</strong>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary">{{ perf.execution_count }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-primary">{{ "%.1f"|format(perf.avg_stocks) }}</span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-success">{{ perf.max_stocks }}</span>
+                                </td>
+                                <td>
+                                    <span class="execution-time">{{ "%.3f"|format(perf.avg_time) }}s</span>
+                                </td>
+                                <td>
+                                    <a href="/?date={{ perf.last_execution }}" class="btn btn-sm btn-link">
+                                        {{ perf.last_execution }}
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- 图表展示 -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-line me-2"></i>
+                    每日选股趋势
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="dailyTrendChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-pie me-2"></i>
+                    选择器性能分布
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="selectorPieChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 每日趋势图表
+{% if execution_summary %}
+const dailyCtx = document.getElementById('dailyTrendChart').getContext('2d');
+const dailyChart = new Chart(dailyCtx, {
+    type: 'line',
+    data: {
+        labels: [{% for s in execution_summary|reverse %}'{{ s.date }}'{% if not loop.last %},{% endif %}{% endfor %}],
+        datasets: [{
+            label: '选中股票数',
+            data: [{% for s in execution_summary|reverse %}{{ s.total_stocks }}{% if not loop.last %},{% endif %}{% endfor %}],
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+            tension: 0.1
+        }, {
+            label: '选择器数量',
+            data: [{% for s in execution_summary|reverse %}{{ s.selector_count }}{% if not loop.last %},{% endif %}{% endfor %}],
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.1)',
+            tension: 0.1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+{% endif %}
+
+// 选择器性能饼图
+{% if selector_performance %}
+const pieCtx = document.getElementById('selectorPieChart').getContext('2d');
+const pieChart = new Chart(pieCtx, {
+    type: 'doughnut',
+    data: {
+        labels: [{% for p in selector_performance %}'{{ p.selector_name }}'{% if not loop.last %},{% endif %}{% endfor %}],
+        datasets: [{
+            data: [{% for p in selector_performance %}{{ p.avg_stocks }}{% if not loop.last %},{% endif %}{% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 205, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(153, 102, 255, 0.8)',
+                'rgba(255, 159, 64, 0.8)'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return context.label + ': ' + context.parsed.toFixed(1) + ' 只股票';
+                    }
+                }
+            }
+        }
+    }
+});
+{% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+
+{% block title %}选股结果 - 股票选择系统{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h1 class="display-6 text-center mb-4">
+            <i class="fas fa-chart-line me-3"></i>
+            选股结果展示
+        </h1>
+    </div>
+</div>
+
+<!-- 日期导航 -->
+<div class="date-nav">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h5 class="mb-0">
+                <i class="fas fa-calendar-alt me-2"></i>
+                选择日期: {{ current_date or '请选择日期' }}
+            </h5>
+        </div>
+        <div class="col-md-6">
+            <div class="btn-group float-end" role="group">
+                {% for date in recent_dates[:10] %}
+                <a href="/?date={{ date }}" 
+                   class="btn btn-sm {% if date == current_date %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                    {{ date }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if current_date and results %}
+<!-- 统计概览 -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card stats-card text-white">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{ results|length }}</h3>
+                <p class="card-text">选择器数量</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card performance-card text-white">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{ total_stocks }}</h3>
+                <p class="card-text">选中股票总数</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{ unique_stocks }}</h3>
+                <p class="card-text">不重复股票</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body text-center">
+                <h3 class="card-title">{{ "%.2f"|format(avg_execution_time) }}s</h3>
+                <p class="card-text">平均执行时间</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 选股结果 -->
+<div class="row">
+    {% for result in results %}
+    <div class="col-md-6 mb-4">
+        <div class="card selector-card h-100">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h5 class="mb-0">
+                            <i class="fas fa-robot me-2"></i>
+                            {{ result.selector_name }}
+                        </h5>
+                    </div>
+                    <div class="col-auto">
+                        <span class="badge bg-light text-dark stock-count">
+                            {{ result.stock_count }} 只股票
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if result.stocks %}
+                <div class="mb-3">
+                    {% if result.stocks_detail %}
+                        <!-- 显示详细股票信息 -->
+                        <div class="row">
+                            {% for stock_detail in result.stocks_detail[:12] %}
+                            <div class="col-md-6 mb-2">
+                                <div class="stock-item p-2 border rounded">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="stock-info">
+                                            <span class="stock-code fw-bold">{{ stock_detail.code }}</span>
+                                            <span class="stock-name text-primary ms-2">{{ stock_detail.name }}</span>
+                                        </div>
+                                        {% if stock_detail.pe_ratio %}
+                                        <small class="text-muted">PE: {{ "%.1f"|format(stock_detail.pe_ratio) }}</small>
+                                        {% endif %}
+                                    </div>
+                                    {% if stock_detail.industry %}
+                                    <div class="mt-1">
+                                        <small class="text-secondary">
+                                            <i class="fas fa-industry me-1"></i>
+                                            {{ stock_detail.industry }}
+                                        </small>
+                                    </div>
+                                    {% endif %}
+                                    {% if stock_detail.market_cap %}
+                                    <div class="mt-1">
+                                        <small class="text-info">
+                                            <i class="fas fa-coins me-1"></i>
+                                            市值: {{ "%.0f亿"|format(stock_detail.market_cap / 100000000) if stock_detail.market_cap > 100000000 else "%.0f万"|format(stock_detail.market_cap / 10000) }}
+                                        </small>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+                            {% if result.stocks_detail|length > 12 %}
+                            <div class="col-12 mt-2">
+                                <button class="btn btn-outline-secondary btn-sm" 
+                                        onclick="toggleMoreStocks(this, '{{ loop.index0 }}')" 
+                                        data-target="more-stocks-{{ loop.index0 }}">
+                                    查看全部 {{ result.stocks_detail|length }} 只股票
+                                </button>
+                                <div id="more-stocks-{{ loop.index0 }}" class="d-none mt-2">
+                                    <div class="row">
+                                        {% for stock_detail in result.stocks_detail[12:] %}
+                                        <div class="col-md-6 mb-2">
+                                            <div class="stock-item p-2 border rounded">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                    <div class="stock-info">
+                                                        <span class="stock-code fw-bold">{{ stock_detail.code }}</span>
+                                                        <span class="stock-name text-primary ms-2">{{ stock_detail.name }}</span>
+                                                    </div>
+                                                    {% if stock_detail.pe_ratio %}
+                                                    <small class="text-muted">PE: {{ "%.1f"|format(stock_detail.pe_ratio) }}</small>
+                                                    {% endif %}
+                                                </div>
+                                                {% if stock_detail.industry %}
+                                                <div class="mt-1">
+                                                    <small class="text-secondary">
+                                                        <i class="fas fa-industry me-1"></i>
+                                                        {{ stock_detail.industry }}
+                                                    </small>
+                                                </div>
+                                                {% endif %}
+                                                {% if stock_detail.market_cap %}
+                                                <div class="mt-1">
+                                                    <small class="text-info">
+                                                        <i class="fas fa-coins me-1"></i>
+                                                        市值: {{ "%.0f亿"|format(stock_detail.market_cap / 100000000) if stock_detail.market_cap > 100000000 else "%.0f万"|format(stock_detail.market_cap / 10000) }}
+                                                    </small>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <!-- 回退到简单显示 -->
+                        {% for stock in result.stocks %}
+                        <span class="stock-code">{{ stock }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="text-muted text-center py-3">
+                    <i class="fas fa-inbox fa-2x mb-2"></i>
+                    <p>未选中任何股票</p>
+                </div>
+                {% endif %}
+                
+                <div class="row text-muted small">
+                    <div class="col">
+                        <i class="fas fa-clock me-1"></i>
+                        执行时间: {{ "%.3f"|format(result.execution_time) }}s
+                    </div>
+                    <div class="col text-end">
+                        <i class="fas fa-calendar me-1"></i>
+                        {{ result.created_at }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% elif current_date %}
+<div class="text-center py-5">
+    <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+    <h3 class="text-muted">{{ current_date }} 暂无选股结果</h3>
+    <p class="text-muted">该日期可能未执行选股任务或任务执行失败</p>
+    <a href="/" class="btn btn-primary">
+        <i class="fas fa-arrow-left me-2"></i>返回首页
+    </a>
+</div>
+
+{% else %}
+<div class="text-center py-5">
+    <i class="fas fa-chart-line fa-3x text-muted mb-3"></i>
+    <h3 class="text-muted">欢迎使用股票选择系统</h3>
+    <p class="text-muted">选择上方日期查看对应的选股结果</p>
+    
+    {% if recent_dates %}
+    <div class="mt-4">
+        <h5>最近执行日期：</h5>
+        <div class="d-flex justify-content-center flex-wrap gap-2">
+            {% for date in recent_dates[:5] %}
+            <a href="/?date={{ date }}" class="btn btn-outline-primary">{{ date }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- 股票重复度分析 -->
+{% if current_date and results and stock_frequency %}
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    股票选中频率分析
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for stock, count in stock_frequency.items() %}
+                    <div class="col-md-3 mb-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="stock-code">{{ stock }}</span>
+                            <div>
+                                <span class="badge bg-{% if count >= 3 %}danger{% elif count >= 2 %}warning{% else %}secondary{% endif %}">
+                                    {{ count }}次
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 切换更多股票显示
+function toggleMoreStocks(button, index) {
+    const targetId = `more-stocks-${index}`;
+    const target = document.getElementById(targetId);
+    
+    if (target) {
+        if (target.classList.contains('d-none')) {
+            target.classList.remove('d-none');
+            button.innerHTML = '<i class="fas fa-chevron-up me-1"></i>收起';
+        } else {
+            target.classList.add('d-none');
+            const stockCount = target.querySelectorAll('.stock-item').length + 12;
+            button.innerHTML = `查看全部 ${stockCount} 只股票`;
+        }
+    }
+}
+
+// 自动刷新功能（可选）
+function autoRefresh() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentDate = urlParams.get('date');
+    if (currentDate) {
+        // 每5分钟刷新一次
+        setTimeout(function() {
+            window.location.reload();
+        }, 300000);
+    }
+}
+
+// 页面加载完成后启动自动刷新
+document.addEventListener('DOMContentLoaded', autoRefresh);
+</script>
+{% endblock %}

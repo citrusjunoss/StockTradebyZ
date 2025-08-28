@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缓存测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .log { background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>缓存系统测试</h1>
+    <button onclick="testCache()">测试缓存</button>
+    <button onclick="clearLogs()">清除日志</button>
+    
+    <div id="logs"></div>
+
+    <script src="/static/js/cache.js"></script>
+    <script src="/static/js/api.js"></script>
+    
+    <script>
+        let logDiv = document.getElementById('logs');
+        
+        function log(message, type = 'info') {
+            console.log(message);
+            let div = document.createElement('div');
+            div.className = `log ${type}`;
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logDiv.appendChild(div);
+        }
+        
+        function clearLogs() {
+            logDiv.innerHTML = '';
+        }
+        
+        async function testCache() {
+            log('开始缓存测试...', 'info');
+            
+            try {
+                // 等待缓存初始化
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // 测试API类是否存在
+                if (typeof StockAPI === 'undefined') {
+                    log('错误：StockAPI类未定义', 'error');
+                    return;
+                }
+                
+                const api = new StockAPI();
+                log('API实例创建成功', 'success');
+                
+                // 测试获取日期列表
+                log('测试1：获取可用日期...', 'info');
+                const dates = await api.getDates();
+                log(`获取到${dates.length}个可用日期: ${JSON.stringify(dates)}`, 'success');
+                
+                if (dates.length > 0) {
+                    // 测试获取选股结果
+                    const testDate = dates[0];
+                    log(`测试2：获取${testDate}的选股结果...`, 'info');
+                    
+                    // 第一次请求（应该从服务器获取）
+                    const start1 = Date.now();
+                    const results1 = await api.getResults(testDate);
+                    const time1 = Date.now() - start1;
+                    log(`第一次请求耗时: ${time1}ms，获取到${results1?.length || 0}条结果`, 'info');
+                    
+                    // 第二次请求（应该从缓存获取）
+                    const start2 = Date.now();
+                    const results2 = await api.getResults(testDate);
+                    const time2 = Date.now() - start2;
+                    log(`第二次请求耗时: ${time2}ms，获取到${results2?.length || 0}条结果`, 'info');
+                    
+                    if (time2 < time1) {
+                        log('✅ 缓存生效！第二次请求更快', 'success');
+                    } else {
+                        log('⚠️ 缓存可能未生效，两次请求时间相似', 'error');
+                    }
+                }
+                
+                // 测试统计信息
+                log('测试3：获取统计信息...', 'info');
+                const stats = await api.getStatistics();
+                if (stats) {
+                    log(`统计信息获取成功`, 'success');
+                } else {
+                    log('统计信息获取失败', 'error');
+                }
+                
+                log('缓存测试完成！', 'success');
+                
+            } catch (error) {
+                log(`测试过程中出现错误: ${error.message}`, 'error');
+            }
+        }
+        
+        // 重写console.log来捕获缓存系统的日志
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            if (args[0] && typeof args[0] === 'string') {
+                if (args[0].includes('缓存') || args[0].includes('cache') || args[0].includes('Cache')) {
+                    log(args.join(' '), 'info');
+                }
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+2025-08-28 16:24:08,710 [INFO] fetch_kline.py:81 筛选得到 2179 只股票
+2025-08-28 16:24:08,712 [INFO] fetch_kline.py:335 开始抓取 2179 支股票 | 数据源:mootdx | 频率:day | 日期:20190101 → 20250828
+2025-08-28 16:26:20,138 [WARNING] fetch_kline.py:190 Mootdx 拉取 600079 失败: timed out
+2025-08-28 16:26:34,249 [WARNING] fetch_kline.py:190 Mootdx 拉取 600369 失败: timed out
+2025-08-28 16:26:49,254 [ERROR] fetch_kline.py:283 600395 第 1 次抓取失败
+Traceback (most recent call last):
+  File "/Volumes/PersonalDisk/GitHub/StockTradebyZ/fetch_kline.py", line 262, in fetch_one
+    new_df = get_kline(code, start, end, "qfq", datasource, freq_code)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Volumes/PersonalDisk/GitHub/StockTradebyZ/fetch_kline.py", line 220, in get_kline
+    return _get_kline_mootdx(code, start, end, adjust, freq_code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Volumes/PersonalDisk/GitHub/StockTradebyZ/fetch_kline.py", line 186, in _get_kline_mootdx
+    client = Quotes.factory(market="std")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/qzd/.pyenv/versions/3.11.4/lib/python3.11/site-packages/mootdx/quotes.py", line 44, in factory
+    return StdQuotes(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/qzd/.pyenv/versions/3.11.4/lib/python3.11/site-packages/mootdx/quotes.py", line 157, in __init__
+    self.client.connect(ip, int(port), time_out=timeout)
+  File "/Users/qzd/.pyenv/versions/3.11.4/lib/python3.11/site-packages/tdxpy/base_socket_client.py", line 194, in connect
+    self.setup()
+  File "/Users/qzd/.pyenv/versions/3.11.4/lib/python3.11/site-packages/tdxpy/hq.py", line 35, in setup
+    SetupCmd1(self.client).call_api()
+  File "/Users/qzd/.pyenv/versions/3.11.4/lib/python3.11/site-packages/tdxpy/parser/base.py", line 117, in call_api
+    result = self._call_api()
+             ^^^^^^^^^^^^^^^^
+  File "/Users/qzd/.pyenv/versions/3.11.4/lib/python3.11/site-packages/tdxpy/parser/base.py", line 152, in _call_api
+    head_buf = self.client.recv(self.rsp_header_len)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TimeoutError: timed out
+2025-08-28 16:27:41,887 [WARNING] fetch_kline.py:190 Mootdx 拉取 600820 失败: timed out
+2025-08-28 16:28:28,311 [WARNING] fetch_kline.py:190 Mootdx 拉取 601098 失败: timed out
+2025-08-28 16:28:33,328 [WARNING] fetch_kline.py:190 Mootdx 拉取 601137 失败: timed out
+2025-08-28 16:29:55,613 [WARNING] fetch_kline.py:190 Mootdx 拉取 603078 失败: timed out
+2025-08-28 16:30:18,512 [WARNING] fetch_kline.py:190 Mootdx 拉取 603533 失败: timed out
+2025-08-28 16:30:49,029 [WARNING] fetch_kline.py:190 Mootdx 拉取 603556 失败: timed out
+2025-08-28 16:30:54,544 [WARNING] fetch_kline.py:190 Mootdx 拉取 603596 失败: timed out
+2025-08-28 16:30:55,463 [WARNING] fetch_kline.py:190 Mootdx 拉取 603607 失败: timed out
+2025-08-28 16:31:01,350 [WARNING] fetch_kline.py:190 Mootdx 拉取 603613 失败: timed out
+2025-08-28 16:32:02,519 [WARNING] fetch_kline.py:190 Mootdx 拉取 603688 失败: timed out
+2025-08-28 16:32:10,151 [WARNING] fetch_kline.py:190 Mootdx 拉取 603707 失败: timed out
+2025-08-28 16:32:15,930 [WARNING] fetch_kline.py:190 Mootdx 拉取 603712 失败: timed out
+2025-08-28 16:32:21,086 [WARNING] fetch_kline.py:190 Mootdx 拉取 603713 失败: timed out
+2025-08-28 16:32:30,552 [WARNING] fetch_kline.py:190 Mootdx 拉取 603730 失败: timed out
+2025-08-28 16:32:38,886 [WARNING] fetch_kline.py:190 Mootdx 拉取 603806 失败: timed out
+2025-08-28 16:32:39,299 [WARNING] fetch_kline.py:190 Mootdx 拉取 603815 失败: timed out
+2025-08-28 16:32:45,347 [WARNING] fetch_kline.py:190 Mootdx 拉取 603855 失败: timed out
+2025-08-28 16:32:46,650 [WARNING] fetch_kline.py:190 Mootdx 拉取 603867 失败: timed out
+2025-08-28 16:32:54,768 [WARNING] fetch_kline.py:190 Mootdx 拉取 603890 失败: timed out
+2025-08-28 16:32:58,653 [WARNING] fetch_kline.py:190 Mootdx 拉取 603912 失败: timed out
+2025-08-28 16:33:00,685 [WARNING] fetch_kline.py:190 Mootdx 拉取 603919 失败: timed out
+2025-08-28 16:33:06,637 [WARNING] fetch_kline.py:190 Mootdx 拉取 603955 失败: timed out
+2025-08-28 16:33:12,098 [WARNING] fetch_kline.py:190 Mootdx 拉取 603969 失败: timed out
+2025-08-28 16:33:29,830 [WARNING] fetch_kline.py:190 Mootdx 拉取 605116 失败: timed out
+2025-08-28 16:33:39,950 [WARNING] fetch_kline.py:190 Mootdx 拉取 605286 失败: timed out
+2025-08-28 16:34:16,916 [WARNING] fetch_kline.py:190 Mootdx 拉取 605300 失败: timed out
+2025-08-28 16:34:22,072 [WARNING] fetch_kline.py:190 Mootdx 拉取 605305 失败: timed out
+2025-08-28 16:34:27,745 [WARNING] fetch_kline.py:190 Mootdx 拉取 605337 失败: timed out
+2025-08-28 16:34:37,991 [WARNING] fetch_kline.py:190 Mootdx 拉取 689009 失败: sina qfq factor not available
+2025-08-28 16:34:59,571 [INFO] fetch_kline.py:362 全部任务完成，数据已保存至 /Volumes/PersonalDisk/GitHub/StockTradebyZ/data

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="专业的股票选择和分析系统，支持离线查看和智能缓存">
+    <meta name="keywords" content="股票,选股,分析,投资,A股">
+    <meta name="author" content="股票选择系统">
+    
+    <!-- PWA配置 -->
+    <meta name="theme-color" content="#007bff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="选股系统">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- 图标和主题 -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/static/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/static/icons/icon-512x512.png">
+    
+    <title>{% block title %}股票选择系统{% endblock %}</title>
+    
+    <!-- 外部CSS资源 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .stock-code {
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin: 2px;
+            display: inline-block;
+        }
+        .stock-count {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .execution-time {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        .date-nav {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .selector-card {
+            transition: transform 0.2s;
+        }
+        .selector-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        .performance-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        /* PWA和离线模式样式 */
+        #network-status {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1050;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #install-button {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .offline-indicator {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .cache-indicator {
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-chart-line me-2"></i>
+                股票选择系统
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-home me-1"></i>首页
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/statistics">
+                            <i class="fas fa-chart-bar me-1"></i>统计
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search">
+                            <i class="fas fa-search me-1"></i>搜索
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-tools me-1"></i>工具
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" id="refresh-button">
+                                <i class="fas fa-sync-alt me-1"></i>刷新数据
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" id="cache-stats-button">
+                                <i class="fas fa-database me-1"></i>缓存统计
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><span class="dropdown-item-text cache-indicator" id="cache-status">
+                                <i class="fas fa-wifi me-1"></i>在线模式
+                            </span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 网络状态提示 -->
+    <div id="network-status" class="alert"></div>
+    
+    <!-- 加载状态 -->
+    <div id="loading">
+        <div class="text-center text-white">
+            <div class="loading-spinner mx-auto mb-3"></div>
+            <p>加载中...</p>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="bg-light mt-5 py-4">
+        <div class="container text-center">
+            <p class="text-muted mb-0">
+                <i class="fas fa-copyright me-1"></i>
+                股票选择系统 - 数据更新时间：{{ current_time }}
+            </p>
+        </div>
+    </footer>
+    
+    <!-- PWA安装按钮 -->
+    <button id="install-button" class="btn btn-primary">
+        <i class="fas fa-download me-2"></i>安装应用
+    </button>
+
+    <!-- JavaScript资源 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <!-- 应用核心脚本 -->
+    <script src="/static/js/cache.js"></script>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/app.js"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

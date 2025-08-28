@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block title %}股票搜索 - 股票选择系统{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h1 class="display-6 text-center mb-4">
+            <i class="fas fa-search me-3"></i>
+            股票搜索
+        </h1>
+    </div>
+</div>
+
+<!-- 搜索表单 -->
+<div class="row mb-4">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-filter me-2"></i>
+                    搜索条件
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="GET" action="/search">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="stocks" class="form-label">股票代码</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       id="stocks" 
+                                       name="stocks" 
+                                       value="{{ request_stocks }}"
+                                       placeholder="输入股票代码，多个代码用逗号分隔，如：000001,000002,600000">
+                                <div class="form-text">支持搜索多只股票的选中情况</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="days" class="form-label">查询天数</label>
+                                <select class="form-select" id="days" name="days">
+                                    <option value="7" {% if days == 7 %}selected{% endif %}>最近7天</option>
+                                    <option value="14" {% if days == 14 %}selected{% endif %}>最近14天</option>
+                                    <option value="30" {% if days == 30 %}selected{% endif %}>最近30天</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-search me-2"></i>搜索
+                        </button>
+                        <a href="/search" class="btn btn-secondary ms-2">
+                            <i class="fas fa-undo me-2"></i>清除
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 搜索结果 -->
+{% if search_results %}
+<div class="row">
+    {% for result in search_results %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <span class="stock-code">{{ result.stock_code }}</span>
+                </h5>
+                <span class="badge bg-{% if result.selection_count >= 5 %}danger{% elif result.selection_count >= 3 %}warning{% elif result.selection_count >= 1 %}success{% else %}secondary{% endif %}">
+                    {{ result.selection_count }} 次选中
+                </span>
+            </div>
+            <div class="card-body">
+                {% if result.selections %}
+                <div class="timeline">
+                    {% for selection in result.selections %}
+                    <div class="timeline-item mb-3 p-2 border-start border-primary border-3">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="mb-1">{{ selection.selector_name }}</h6>
+                                <small class="text-muted">{{ selection.date }}</small>
+                            </div>
+                            <span class="badge bg-light text-dark">
+                                总计{{ selection.total_stocks }}只
+                            </span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center text-muted py-3">
+                    <i class="fas fa-inbox fa-2x mb-2"></i>
+                    <p>在指定时间范围内未被选中</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- 搜索统计 -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    搜索统计
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <h4 class="text-primary">{{ search_results|length }}</h4>
+                        <small class="text-muted">搜索股票数</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="text-success">{{ search_results|selectattr('selection_count')|list|length }}</h4>
+                        <small class="text-muted">有选中记录</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="text-info">{{ (search_results|sum(attribute='selection_count')) }}</h4>
+                        <small class="text-muted">总选中次数</small>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="text-warning">
+                            {% set avg = (search_results|sum(attribute='selection_count')) / (search_results|length) if search_results|length > 0 else 0 %}
+                            {{ "%.1f"|format(avg) }}
+                        </h4>
+                        <small class="text-muted">平均选中次数</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% elif request_stocks %}
+<div class="text-center py-5">
+    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+    <h3 class="text-muted">未找到搜索结果</h3>
+    <p class="text-muted">请检查股票代码是否正确，或尝试扩大搜索时间范围</p>
+</div>
+
+{% else %}
+<div class="text-center py-5">
+    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+    <h3 class="text-muted">股票搜索功能</h3>
+    <p class="text-muted">在上方输入股票代码，查看股票在指定时间范围内的选中情况</p>
+    
+    <div class="mt-4">
+        <h5>使用示例：</h5>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="alert alert-info">
+                    <strong>单只股票：</strong>000001<br>
+                    <strong>多只股票：</strong>000001,000002,600000<br>
+                    <strong>支持格式：</strong>6位数字股票代码
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 股票代码输入格式化
+document.getElementById('stocks').addEventListener('input', function(e) {
+    let value = e.target.value;
+    // 移除非数字和逗号的字符
+    value = value.replace(/[^\d,]/g, '');
+    // 格式化为6位数字+逗号的格式
+    value = value.replace(/(\d{6})/g, '$1,').replace(/,$/, '');
+    e.target.value = value;
+});
+
+// 回车键提交表单
+document.getElementById('stocks').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        document.querySelector('form').submit();
+    }
+});
+</script>
+{% endblock %}

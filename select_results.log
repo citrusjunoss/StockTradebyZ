@@ -1,0 +1,557 @@
+2025-08-28 16:49:56,859 [INFO] 未指定 --date，使用最近日期 2025-08-28
+2025-08-28 16:50:12,735 [INFO] 
+2025-08-28 16:50:12,736 [INFO] ============== 选股结果 [少妇战法] ==============
+2025-08-28 16:50:12,736 [INFO] 交易日: 2025-08-28
+2025-08-28 16:50:12,736 [INFO] 符合条件股票数: 140
+2025-08-28 16:50:12,736 [INFO] 执行时间: 14.633秒
+2025-08-28 16:50:12,736 [INFO] 000561, 003040, 002174, 600841, 002565, 002203, 002029, 002773, 605333, 601155, 002161, 000006, 605319, 600507, 600329, 002215, 600658, 600894, 603033, 002176, 600710, 600062, 002833, 600106, 002562, 600884, 600649, 001322, 600529, 000612, 002819, 002117, 603456, 002937, 605378, 002670, 603053, 002328, 000501, 601336, 003020, 002896, 603130, 002673, 002317, 605196, 002688, 002267, 605020, 603337, 603733, 605183, 600006, 002884, 002270, 002271, 001208, 002675, 601696, 603081, 600985, 600775, 600963, 603271, 002334, 603701, 600546, 601658, 601089, 603113, 002254, 002240, 600143, 603489, 600751, 603299, 603528, 603312, 002915, 002901, 600587, 002444, 603920, 603868, 603129, 603897, 603667, 601702, 600150, 002534, 601065, 000652, 000685, 603699, 603538, 003005, 600958, 002245, 603301, 605228, 601890, 603936, 600733, 001306, 002009, 600860, 603399, 000409, 600336, 002975, 002418, 002342, 603207, 600917, 002432, 001311, 600452, 600645, 601567, 002779, 600255, 601177, 000026, 002782, 002580, 600133, 002225, 603611, 002768, 600481, 600495, 000989, 601199, 000551, 600508, 002971, 002965, 605060, 603612, 002019
+2025-08-28 16:50:12,740 [INFO] 保存选股结果: 2025-08-28 - 少妇战法 - 140只股票
+2025-08-28 16:52:51,462 [INFO] 
+2025-08-28 16:52:51,463 [INFO] ============== 选股结果 [SuperB1战法] ==============
+2025-08-28 16:52:51,463 [INFO] 交易日: 2025-08-28
+2025-08-28 16:52:51,464 [INFO] 符合条件股票数: 0
+2025-08-28 16:52:51,464 [INFO] 执行时间: 158.722秒
+2025-08-28 16:52:51,464 [INFO] 无符合条件股票
+2025-08-28 16:52:51,467 [INFO] 保存选股结果: 2025-08-28 - SuperB1战法 - 0只股票
+2025-08-28 16:53:07,548 [INFO] 
+2025-08-28 16:53:07,548 [INFO] ============== 选股结果 [补票战法] ==============
+2025-08-28 16:53:07,548 [INFO] 交易日: 2025-08-28
+2025-08-28 16:53:07,548 [INFO] 符合条件股票数: 14
+2025-08-28 16:53:07,549 [INFO] 执行时间: 16.081秒
+2025-08-28 16:53:07,549 [INFO] 603019, 002405, 000628, 002371, 002415, 603380, 600176, 600997, 603927, 600795, 603659, 600877, 000977, 603203
+2025-08-28 16:53:07,550 [INFO] 保存选股结果: 2025-08-28 - 补票战法 - 14只股票
+2025-08-28 16:53:14,861 [INFO] 
+2025-08-28 16:53:14,862 [INFO] ============== 选股结果 [TePu战法] ==============
+2025-08-28 16:53:14,862 [INFO] 交易日: 2025-08-28
+2025-08-28 16:53:14,862 [INFO] 符合条件股票数: 0
+2025-08-28 16:53:14,862 [INFO] 执行时间: 7.311秒
+2025-08-28 16:53:14,862 [INFO] 无符合条件股票
+2025-08-28 16:53:14,865 [INFO] 保存选股结果: 2025-08-28 - TePu战法 - 0只股票
+2025-08-28 16:53:23,296 [INFO] 
+2025-08-28 16:53:23,296 [INFO] ============== 选股结果 [填坑战法] ==============
+2025-08-28 16:53:23,296 [INFO] 交易日: 2025-08-28
+2025-08-28 16:53:23,296 [INFO] 符合条件股票数: 12
+2025-08-28 16:53:23,296 [INFO] 执行时间: 8.431秒
+2025-08-28 16:53:23,296 [INFO] 000006, 002215, 000612, 600110, 002937, 605378, 000501, 003020, 603299, 600733, 600495, 002965
+2025-08-28 16:53:23,299 [INFO] 保存选股结果: 2025-08-28 - 填坑战法 - 12只股票
+2025-08-28 16:53:23,299 [INFO] 
+2025-08-28 16:53:23,299 [INFO] =============== 执行完成 ===============
+2025-08-28 16:53:23,299 [INFO] 执行日期: 2025-08-28
+2025-08-28 16:53:23,299 [INFO] 成功执行选择器: 5
+2025-08-28 16:53:23,299 [INFO] 选中股票总数: 166
+2025-08-28 16:53:23,299 [INFO] 总执行时间: 206.438秒
+2025-08-28 16:53:23,301 [INFO] 保存执行日志: 2025-08-28 - success
+2025-08-28 17:06:02,734 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:06:02,760 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:06:02,762 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:06:02,763 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:06:06,981 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:06:07,002 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:06:07,003 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:06:07,003 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:06:08,790 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:06:08,804 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:06:08,805 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:06:08,805 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:06:11,204 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:06:11,227 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:06:11,232 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:06:11,233 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:06:13,525 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:06:13,542 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:06:13,542 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:06:13,543 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:06:17,066 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:06:17,081 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:06:17,081 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:06:17,082 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:06:21,785 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:06:21,802 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:06:21,802 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:06:21,803 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:06:30,525 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:06:30,550 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:06:30,551 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:06:30,551 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:06:45,199 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:06:45,219 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:06:45,219 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:06:45,220 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:07:13,349 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:07:13,372 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:07:13,374 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:07:13,376 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:08:08,166 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:08:08,185 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:08:08,186 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:08:08,186 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:09:10,822 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:09:10,864 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:09:10,865 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:09:10,866 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:10:12,845 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:10:12,866 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:10:12,867 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:10:12,867 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:11:14,254 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:11:14,269 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:11:14,270 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:11:14,270 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:12:15,772 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:12:15,792 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:12:15,793 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:12:15,793 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:13:16,945 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:13:16,959 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:13:16,960 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:13:16,960 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:14:18,393 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:14:18,408 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:14:18,409 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:14:18,410 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:15:19,563 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:15:19,579 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:15:19,579 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:15:19,580 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:16:20,721 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:16:20,737 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:16:20,738 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:16:20,738 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:16:33,467 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:16:33,483 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:16:33,483 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:16:33,484 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:16:34,896 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:16:34,910 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:16:34,912 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:16:34,912 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:16:36,299 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:16:36,313 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:16:36,314 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:16:36,314 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:16:37,777 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:16:37,793 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:16:37,793 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:16:37,794 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:16:39,862 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:16:39,906 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:16:39,907 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:16:39,908 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:16:42,751 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:16:42,765 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:16:42,765 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:16:42,766 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:16:48,133 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:16:48,151 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:16:48,152 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:16:48,152 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:16:56,525 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:16:56,541 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:16:56,541 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:16:56,542 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:17:11,638 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:17:11,652 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:17:11,653 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:17:11,653 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:17:38,435 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:17:38,450 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:17:38,450 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:17:38,451 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:18:30,677 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:18:30,710 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:18:30,711 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:18:30,712 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:19:32,065 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:19:32,089 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:19:32,089 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:19:32,091 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:20:33,865 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:20:33,887 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:20:33,889 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:20:33,889 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:21:35,110 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:21:35,125 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:21:35,126 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:21:35,126 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:22:37,171 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:22:37,188 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:22:37,189 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:22:37,189 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:23:39,126 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:23:39,147 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:23:39,148 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:23:39,148 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:24:35,345 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:24:35,362 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:24:35,363 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:24:35,363 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:24:37,903 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:24:37,923 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:24:37,924 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:24:37,924 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:24:40,602 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:24:40,621 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:24:40,622 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:24:40,622 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:24:43,970 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:24:43,997 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:24:43,998 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:24:43,998 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:24:47,610 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:24:47,629 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:24:47,630 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:24:47,630 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:24:51,822 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:24:51,838 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:24:51,839 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:24:51,839 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:24:57,699 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:24:57,814 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:24:57,815 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:24:57,816 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:25:09,298 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:25:09,340 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:25:09,341 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:25:09,341 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:25:24,910 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:25:24,925 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:25:24,926 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:25:24,926 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:26:06,736 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:26:06,759 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:26:06,760 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:26:06,761 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:26:10,852 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:26:10,869 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:26:10,870 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:26:10,871 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:26:13,592 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:26:13,609 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:26:13,610 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:26:13,610 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:26:16,018 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:26:16,034 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:26:16,035 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:26:16,035 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:26:18,657 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:26:18,672 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:26:18,673 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:26:18,673 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:26:22,216 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:26:22,231 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:26:22,231 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:26:22,232 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:26:27,359 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:26:27,375 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:26:27,376 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:26:27,376 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:26:35,431 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:26:35,462 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:26:35,463 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:26:35,463 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:26:50,137 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:26:50,150 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:26:50,151 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:26:50,151 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:27:17,699 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:27:17,714 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:27:17,715 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:27:17,715 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:28:10,730 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:28:10,745 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:28:10,746 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:28:10,746 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:29:12,358 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:29:12,372 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:29:12,373 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:29:12,373 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:30:13,949 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:30:13,962 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:30:13,963 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:30:13,963 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:31:15,526 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:31:15,540 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:31:15,541 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:31:15,541 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:32:17,151 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:32:17,164 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:32:17,165 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:32:17,166 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:33:18,862 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:33:18,877 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:33:18,878 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:33:18,878 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:34:20,475 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:34:20,492 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:34:20,493 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:34:20,493 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:35:22,129 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:35:22,146 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:35:22,146 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:35:22,147 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:36:23,760 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:36:23,774 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:36:23,775 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:36:23,776 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:37:25,383 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:37:25,398 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:37:25,399 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:37:25,400 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:38:27,457 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:38:27,476 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:38:27,477 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:38:27,477 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:39:29,119 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:39:29,135 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:39:29,135 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:39:29,136 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:40:30,743 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:40:30,759 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:40:30,760 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:40:30,761 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:41:32,372 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:41:32,388 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:41:32,389 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:41:32,389 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:42:34,001 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:42:34,016 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:42:34,017 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:42:34,017 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:43:35,689 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:43:35,707 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:43:35,707 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:43:35,708 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:44:37,347 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:44:37,373 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:44:37,374 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:44:37,376 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:45:39,094 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:45:39,117 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:45:39,118 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:45:39,118 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:46:40,750 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:46:40,766 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:46:40,767 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:46:40,767 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:47:42,371 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:47:42,393 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:47:42,394 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:47:42,394 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:48:44,069 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:48:44,086 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:48:44,087 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:48:44,087 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:49:45,695 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:49:45,711 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:49:45,711 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:49:45,712 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:50:47,300 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:50:47,317 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:50:47,318 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:50:47,318 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:51:48,978 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:51:48,994 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:51:48,995 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:51:48,996 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:52:50,725 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:52:50,743 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:52:50,744 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:52:50,744 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:53:53,004 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:53:53,026 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:53:53,027 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:53:53,027 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:54:52,709 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:54:52,725 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:54:52,726 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:54:52,727 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:55:54,444 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:55:54,461 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:55:54,462 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:55:54,462 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:56:56,553 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:56:56,594 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:56:56,595 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:56:56,595 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:57:58,392 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:57:58,408 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:57:58,409 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:57:58,409 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 17:59:00,749 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 17:59:00,769 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 17:59:00,771 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 17:59:00,771 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:00:02,543 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:00:02,562 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:00:02,563 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:00:02,563 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:01:04,535 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:01:04,551 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:01:04,552 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:01:04,552 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:02:07,388 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:02:07,406 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:02:07,406 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:02:07,407 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:03:09,179 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:03:09,198 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:03:09,199 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:03:09,199 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:04:10,909 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:04:10,925 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:04:10,926 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:04:10,926 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:05:12,634 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:05:12,650 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:05:12,650 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:05:12,651 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:06:14,573 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:06:14,592 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:06:14,593 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:06:14,593 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:07:16,238 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:07:16,255 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:07:16,255 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:07:16,256 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:08:17,988 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:08:18,005 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:08:18,006 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:08:18,006 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:09:19,973 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:09:19,992 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:09:19,992 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:09:19,993 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:10:21,811 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:10:21,838 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:10:21,838 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:10:21,839 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:10:21,840 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:10:21,840 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:10:21,841 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:10:51,309 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:10:51,362 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:10:51,362 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:10:51,362 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:10:51,362 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:10:51,363 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:10:51,363 [ERROR] 调度器运行异常: 'Job' object has no attribute 'next_run_time'
+2025-08-28 18:11:10,496 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:11:10,526 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:11:10,526 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:11:10,526 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:11:10,527 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:11:10,527 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:11:10,528 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 18:11:10,528 [INFO] Scheduler started
+2025-08-28 18:11:23,576 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:11:23,594 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:11:23,595 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:11:23,595 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:11:23,595 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:11:23,596 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:11:23,600 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 18:11:23,601 [INFO] Scheduler started
+2025-08-28 18:17:59,347 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:17:59,365 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:17:59,367 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:17:59,368 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:17:59,370 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:17:59,371 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:17:59,373 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 18:17:59,379 [INFO] Scheduler started
+2025-08-28 18:20:46,096 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:20:46,114 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:20:46,115 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:20:46,115 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:20:46,115 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:20:46,116 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:20:46,117 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 18:20:46,118 [INFO] Scheduler started
+2025-08-28 18:21:50,815 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:21:50,834 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:21:50,834 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:21:50,835 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:21:50,835 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:21:50,835 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:21:50,839 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 18:21:50,839 [INFO] Scheduler started
+2025-08-28 18:26:12,523 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:26:12,539 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:26:12,539 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:26:12,540 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:26:12,541 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:26:12,541 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:26:12,543 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 18:26:12,543 [INFO] Scheduler started
+2025-08-28 18:26:58,916 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:26:58,947 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:26:58,947 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:26:58,948 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:26:58,948 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:26:58,949 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:26:58,956 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 18:26:58,957 [INFO] Scheduler started
+2025-08-28 18:27:34,480 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:27:34,497 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:27:34,498 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:27:34,498 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:27:34,499 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:27:34,499 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:27:34,501 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 18:27:34,502 [INFO] Scheduler started
+2025-08-28 18:28:29,502 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:28:29,518 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:28:29,520 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:28:29,521 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:28:29,521 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:28:29,521 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:28:29,523 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 18:28:29,524 [INFO] Scheduler started
+2025-08-28 18:31:47,424 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 18:31:47,440 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 18:31:47,441 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 18:31:47,441 [INFO] 添加任务: 每日选股任务
+2025-08-28 18:31:47,442 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 18:31:47,442 [INFO] 调度器启动，等待任务执行...
+2025-08-28 18:31:47,446 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 18:31:47,449 [INFO] Scheduler started
+2025-08-28 20:30:49,125 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 20:30:49,143 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 20:30:49,143 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 20:30:49,143 [INFO] 添加任务: 每日选股任务
+2025-08-28 20:30:49,144 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 20:30:49,144 [INFO] 调度器启动，等待任务执行...
+2025-08-28 20:30:49,146 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 20:30:49,146 [INFO] Scheduler started
+2025-08-28 20:34:26,664 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 20:34:26,688 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 20:34:26,689 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 20:34:26,690 [INFO] 添加任务: 每日选股任务
+2025-08-28 20:34:26,690 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 20:34:26,691 [INFO] 调度器启动，等待任务执行...
+2025-08-28 20:34:26,693 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 20:34:26,693 [INFO] Scheduler started
+2025-08-28 20:53:50,652 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 20:53:50,670 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 20:53:50,671 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 20:53:50,671 [INFO] 添加任务: 每日选股任务
+2025-08-28 20:53:50,671 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 20:53:50,672 [INFO] 调度器启动，等待任务执行...
+2025-08-28 20:53:50,674 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 20:53:50,674 [INFO] Scheduler started
+2025-08-28 20:57:29,999 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 20:57:30,018 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 20:57:30,019 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 20:57:30,019 [INFO] 添加任务: 每日选股任务
+2025-08-28 20:57:30,020 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 20:57:30,020 [INFO] 调度器启动，等待任务执行...
+2025-08-28 20:57:30,024 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 20:57:30,024 [INFO] Scheduler started
+2025-08-28 20:59:33,252 [INFO] 成功加载配置文件: scheduler_config.json
+2025-08-28 20:59:33,275 [INFO] 调度器初始化完成，时区: Asia/Shanghai
+2025-08-28 20:59:33,276 [INFO] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2025-08-28 20:59:33,277 [INFO] 添加任务: 每日选股任务
+2025-08-28 20:59:33,277 [INFO] 跳过已禁用的任务: 晚间选股任务
+2025-08-28 20:59:33,277 [INFO] 调度器启动，等待任务执行...
+2025-08-28 20:59:33,280 [INFO] Added job "每日选股任务" to job store "default"
+2025-08-28 20:59:33,280 [INFO] Scheduler started

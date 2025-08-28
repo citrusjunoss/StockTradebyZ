@@ -1,0 +1,48 @@
+{
+  "scheduler": {
+    "timezone": "Asia/Shanghai",
+    "max_workers": 1,
+    "coalesce": true,
+    "max_instances": 1
+  },
+  "jobs": [
+    {
+      "id": "daily_stock_selection",
+      "name": "每日选股任务",
+      "trigger": "cron",
+      "enabled": true,
+      "hour": 8,
+      "minute": 30,
+      "second": 0,
+      "args": {
+        "data_dir": "./data",
+        "config": "./configs.json",
+        "tickers": "all",
+        "cache_dir": "./cache",
+        "datasource": "akshare",
+        "workers": 3,
+        "skip_data_update": false
+      },
+      "misfire_grace_time": 300
+    },
+    {
+      "id": "evening_stock_selection", 
+      "name": "晚间选股任务",
+      "trigger": "cron",
+      "enabled": false,
+      "hour": 20,
+      "minute": 0,
+      "second": 0,
+      "args": {
+        "data_dir": "./data",
+        "config": "./configs.json", 
+        "tickers": "all",
+        "cache_dir": "./cache",
+        "datasource": "akshare",
+        "workers": 3,
+        "skip_data_update": false
+      },
+      "misfire_grace_time": 300
+    }
+  ]
+}
