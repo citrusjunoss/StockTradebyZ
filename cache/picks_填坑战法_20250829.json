@@ -1,23 +1,23 @@
 {
   "trade_date": "2025-08-29",
-  "generated_time": "2025-08-29T15:28:39.185248",
+  "generated_time": "2025-08-29T11:25:27.238671",
   "selector_alias": "填坑战法",
   "total_stocks": 14,
   "selected_stocks": [
     "002823",
-    "001308",
-    "603586",
     "600360",
     "603912",
-    "000501",
     "605208",
-    "600615",
-    "603299",
-    "600633",
-    "603511",
-    "002873",
+    "002965",
+    "001308",
     "603968",
-    "002965"
+    "603299",
+    "603511",
+    "000501",
+    "600633",
+    "603586",
+    "600615",
+    "002873"
   ],
   "stock_details": {
     "002823": {
@@ -30,30 +30,6 @@
       "pb_mrq": 2.751311,
       "latest_close": 16.74,
       "latest_volume": 101882.0,
-      "latest_date": "2025-08-29"
-    },
-    "001308": {
-      "name": "康冠科技",
-      "industry": "C39计算机、通信和其他电子设备制造业",
-      "market": "深圳",
-      "close_price": 25.18,
-      "market_cap": 20144000000.0,
-      "pe_ttm": 21.848219,
-      "pb_mrq": 2.209938,
-      "latest_close": 24.7,
-      "latest_volume": 42012.0,
-      "latest_date": "2025-08-29"
-    },
-    "603586": {
-      "name": "金麒麟",
-      "industry": "C36汽车制造业",
-      "market": "上海",
-      "close_price": 20.29,
-      "market_cap": 30435000000.0,
-      "pe_ttm": 23.841922,
-      "pb_mrq": 1.735173,
-      "latest_close": 20.25,
-      "latest_volume": 52599.0,
       "latest_date": "2025-08-29"
     },
     "600360": {
@@ -80,18 +56,6 @@
       "latest_volume": 220260.0,
       "latest_date": "2025-08-29"
     },
-    "000501": {
-      "name": "武商集团",
-      "industry": "F52零售业",
-      "market": "深圳",
-      "close_price": 10.9,
-      "market_cap": 8720000000.0,
-      "pe_ttm": 36.834497,
-      "pb_mrq": 0.760906,
-      "latest_close": 10.74,
-      "latest_volume": 265271.0,
-      "latest_date": "2025-08-29"
-    },
     "605208": {
       "name": "永茂泰",
       "industry": "C32有色金属冶炼和压延加工业",
@@ -104,64 +68,28 @@
       "latest_volume": 125382.0,
       "latest_date": "2025-08-29"
     },
-    "600615": {
-      "name": "鑫源智造",
-      "industry": "C33金属制品业",
-      "market": "上海",
-      "close_price": 12.75,
-      "market_cap": 19125000000.0,
-      "pe_ttm": 179.813726,
-      "pb_mrq": 3.894378,
-      "latest_close": 12.78,
-      "latest_volume": 64639.0,
-      "latest_date": "2025-08-29"
-    },
-    "603299": {
-      "name": "苏盐井神",
-      "industry": "C26化学原料和化学制品制造业",
-      "market": "上海",
-      "close_price": 11.09,
-      "market_cap": 16635000000.0,
-      "pe_ttm": 13.721212,
-      "pb_mrq": 1.425815,
-      "latest_close": 11.11,
-      "latest_volume": 94513.0,
-      "latest_date": "2025-08-29"
-    },
-    "600633": {
-      "name": "浙数文化",
-      "industry": "I64互联网和相关服务",
-      "market": "上海",
-      "close_price": 15.39,
-      "market_cap": 23085000000.0,
-      "pe_ttm": 26.314018,
-      "pb_mrq": 1.923614,
-      "latest_close": 15.12,
-      "latest_volume": 351345.0,
-      "latest_date": "2025-08-29"
-    },
-    "603511": {
-      "name": "爱慕股份",
-      "industry": "C18纺织服装、服饰业",
-      "market": "上海",
-      "close_price": 14.95,
-      "market_cap": 22425000000.0,
-      "pe_ttm": 52.597239,
-      "pb_mrq": 1.385114,
-      "latest_close": 14.75,
-      "latest_volume": 39311.0,
-      "latest_date": "2025-08-29"
-    },
-    "002873": {
-      "name": "新天药业",
-      "industry": "C27医药制造业",
+    "002965": {
+      "name": "祥鑫科技",
+      "industry": "C36汽车制造业",
       "market": "深圳",
-      "close_price": 12.0,
-      "market_cap": 9600000000.0,
-      "pe_ttm": 105.560286,
-      "pb_mrq": 2.469095,
-      "latest_close": 12.02,
-      "latest_volume": 166265.0,
+      "close_price": 43.6,
+      "market_cap": 34880000000.0,
+      "pe_ttm": 39.196054,
+      "pb_mrq": 2.744109,
+      "latest_close": 43.84,
+      "latest_volume": 187369.0,
+      "latest_date": "2025-08-29"
+    },
+    "001308": {
+      "name": "康冠科技",
+      "industry": "C39计算机、通信和其他电子设备制造业",
+      "market": "深圳",
+      "close_price": 25.18,
+      "market_cap": 20144000000.0,
+      "pe_ttm": 21.848219,
+      "pb_mrq": 2.209938,
+      "latest_close": 24.7,
+      "latest_volume": 42012.0,
       "latest_date": "2025-08-29"
     },
     "603968": {
@@ -176,16 +104,88 @@
       "latest_volume": 36319.0,
       "latest_date": "2025-08-29"
     },
-    "002965": {
-      "name": "祥鑫科技",
-      "industry": "C36汽车制造业",
+    "603299": {
+      "name": "苏盐井神",
+      "industry": "C26化学原料和化学制品制造业",
+      "market": "上海",
+      "close_price": 11.09,
+      "market_cap": 16635000000.0,
+      "pe_ttm": 13.721212,
+      "pb_mrq": 1.425815,
+      "latest_close": 11.11,
+      "latest_volume": 94513.0,
+      "latest_date": "2025-08-29"
+    },
+    "603511": {
+      "name": "爱慕股份",
+      "industry": "C18纺织服装、服饰业",
+      "market": "上海",
+      "close_price": 14.95,
+      "market_cap": 22425000000.0,
+      "pe_ttm": 52.597239,
+      "pb_mrq": 1.385114,
+      "latest_close": 14.75,
+      "latest_volume": 39311.0,
+      "latest_date": "2025-08-29"
+    },
+    "000501": {
+      "name": "武商集团",
+      "industry": "F52零售业",
       "market": "深圳",
-      "close_price": 43.6,
-      "market_cap": 34880000000.0,
-      "pe_ttm": 39.196054,
-      "pb_mrq": 2.744109,
-      "latest_close": 43.84,
-      "latest_volume": 187369.0,
+      "close_price": 10.9,
+      "market_cap": 8720000000.0,
+      "pe_ttm": 36.834497,
+      "pb_mrq": 0.760906,
+      "latest_close": 10.74,
+      "latest_volume": 265271.0,
+      "latest_date": "2025-08-29"
+    },
+    "600633": {
+      "name": "浙数文化",
+      "industry": "I64互联网和相关服务",
+      "market": "上海",
+      "close_price": 15.39,
+      "market_cap": 23085000000.0,
+      "pe_ttm": 26.314018,
+      "pb_mrq": 1.923614,
+      "latest_close": 15.12,
+      "latest_volume": 351345.0,
+      "latest_date": "2025-08-29"
+    },
+    "603586": {
+      "name": "金麒麟",
+      "industry": "C36汽车制造业",
+      "market": "上海",
+      "close_price": 20.29,
+      "market_cap": 30435000000.0,
+      "pe_ttm": 23.841922,
+      "pb_mrq": 1.735173,
+      "latest_close": 20.25,
+      "latest_volume": 52599.0,
+      "latest_date": "2025-08-29"
+    },
+    "600615": {
+      "name": "鑫源智造",
+      "industry": "C33金属制品业",
+      "market": "上海",
+      "close_price": 12.75,
+      "market_cap": 19125000000.0,
+      "pe_ttm": 179.813726,
+      "pb_mrq": 3.894378,
+      "latest_close": 12.78,
+      "latest_volume": 64639.0,
+      "latest_date": "2025-08-29"
+    },
+    "002873": {
+      "name": "新天药业",
+      "industry": "C27医药制造业",
+      "market": "深圳",
+      "close_price": 12.0,
+      "market_cap": 9600000000.0,
+      "pe_ttm": 105.560286,
+      "pb_mrq": 2.469095,
+      "latest_close": 12.02,
+      "latest_volume": 166265.0,
       "latest_date": "2025-08-29"
     }
   }
