@@ -7,7 +7,7 @@ import os
 import json
 from pathlib import Path
 
-DEFAULT_DATASOURCE = "akshare"
+DEFAULT_DATASOURCE = "baostock"
 CONFIG_FILE = "datasource_config.json"
 
 def get_current_datasource() -> str:
@@ -48,11 +48,11 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         # 设置数据源
         new_datasource = sys.argv[1]
-        if new_datasource.lower() in ['akshare', 'tushare', 'mootdx']:
+        if new_datasource.lower() in ['akshare', 'tushare', 'baostock', 'mootdx']:
             set_current_datasource(new_datasource)
         else:
             print(f"不支持的数据源: {new_datasource}")
-            print("支持的数据源: akshare, tushare, mootdx")
+            print("支持的数据源: akshare, tushare, baostock, mootdx")
     else:
         # 显示当前数据源
         current = get_current_datasource()

@@ -48,14 +48,13 @@ jobs:
     - name: Run fetch_kline
       run: |
         echo "开始执行 fetch_kline..."
-        python fetch_kline.py --datasource akshare --out ./data
+        python fetch_kline.py  --datasource mootdx --frequency 4 --exclude-gem false --min-mktcap 5e9  --max-mktcap +inf --start 20200101 --end today --out ./data --workers 10
       continue-on-error: false
 
     - name: Run select_stock
       run: |
         echo "开始执行 select_stock..."
-        python select_stock.py --data-dir ./data --config ./configs.json > stock_results.txt 2>&1
-        cat stock_results.txt
+        python select_stock.py --data-dir ./data --config ./configs.json
       continue-on-error: false
 
     - name: Generate HTML report

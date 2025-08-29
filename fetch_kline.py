@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import List, Optional
 
 import akshare as ak
+import baostock as bs
 import pandas as pd
 import tushare as ts
 from mootdx.quotes import Quotes
@@ -21,6 +22,17 @@ from stock_info_cache import update_stock_info_from_codes
 from get_datasource import set_current_datasource
 
 warnings.filterwarnings("ignore")
+
+# 股票信息缓存管理器实例
+_stock_cache_manager = None
+
+def get_stock_cache_manager():
+    """获取股票信息缓存管理器实例"""
+    global _stock_cache_manager
+    if _stock_cache_manager is None:
+        from data_cache_manager import StockDataCacheManager
+        _stock_cache_manager = StockDataCacheManager()
+    return _stock_cache_manager
 
 # --------------------------- 全局日志配置 --------------------------- #
 LOG_FILE = Path("fetch.log")
@@ -39,161 +51,7 @@ for noisy in ("httpx", "urllib3", "_client", "akshare"):
     logging.getLogger(noisy).setLevel(logging.WARNING)
 
 # --------------------------- 市值快照 --------------------------- #
-
-def _get_mktcap_ak() -> pd.DataFrame:
-    """AKShare获取实时快照，返回列：code, mktcap（单位：元）"""
-    for attempt in range(1, 4):
-        try:
-            df = ak.stock_zh_a_spot_em()
-            break
-        except Exception as e:
-            logger.warning("AKShare 获取市值快照失败(%d/3): %s", attempt, e)
-            time.sleep(backoff := random.uniform(1, 3) * attempt)
-    else:
-        raise RuntimeError("AKShare 连续三次拉取市值快照失败！")
-
-    df = df[["代码", "总市值"]].rename(columns={"代码": "code", "总市值": "mktcap"})
-    df["mktcap"] = pd.to_numeric(df["mktcap"], errors="coerce")
-    return df
-
-def _get_mktcap_tushare() -> pd.DataFrame:
-    """TuShare获取市值数据，返回列：code, mktcap（单位：元）"""
-    try:
-        # 使用TuShare获取股票基本信息，包含市值数据
-        today = dt.date.today().strftime('%Y%m%d')
-        
-        # 尝试获取今日数据
-        try:
-            df_basic = pro.daily_basic(trade_date=today, fields='ts_code,total_mv')
-        except:
-            # 如果今日数据不可用，尝试前一交易日
-            yesterday = (dt.date.today() - dt.timedelta(days=1)).strftime('%Y%m%d')
-            df_basic = pro.daily_basic(trade_date=yesterday, fields='ts_code,total_mv')
-        
-        if df_basic is None or df_basic.empty:
-            raise RuntimeError("TuShare 无法获取市值数据")
-            
-        # 转换格式
-        df_basic['code'] = df_basic['ts_code'].str.replace('.SH', '').str.replace('.SZ', '')
-        df_basic['mktcap'] = df_basic['total_mv'] * 10000  # 万元转元
-        
-        return df_basic[['code', 'mktcap']].dropna()
-        
-    except Exception as e:
-        raise RuntimeError(f"TuShare 获取市值快照失败: {e}")
-
-def _get_mktcap_mootdx() -> pd.DataFrame:
-    """Mootdx获取市值数据（基于股价和股本计算），返回列：code, mktcap（单位：元）"""
-    try:
-        client = Quotes.factory(market='std')
-        
-        # 获取所有A股列表
-        stocks = client.stocks()
-        if stocks is None or len(stocks) == 0:
-            raise RuntimeError("Mootdx 无法获取股票列表")
-            
-        mktcap_data = []
-        stock_list = stocks[:500]  # 限制处理数量避免超时
-        
-        # 逐个获取股票信息（避免批量处理的复杂性）
-        for i, stock in enumerate(stock_list):
-            if i % 50 == 0:
-                logger.info(f"Mootdx处理进度: {i}/{len(stock_list)}")
-            
-            try:
-                code = stock.get('code', '')
-                name = stock.get('name', '')
-                if not code:
-                    continue
-                    
-                # 简化处理：使用固定市值避免复杂的实时价格计算
-                # 这里只是为了提供一个基础的股票列表，实际市值筛选会相对宽松
-                if code.startswith(('000', '001', '002', '300', '301')):  # 深市
-                    default_mktcap = 5e10  # 500亿
-                elif code.startswith(('600', '601', '603', '605', '688')):  # 沪市
-                    default_mktcap = 8e10  # 800亿
-                else:
-                    default_mktcap = 3e10  # 300亿
-                
-                mktcap_data.append({
-                    'code': code,
-                    'mktcap': default_mktcap
-                })
-                
-            except Exception as e:
-                logger.warning(f"Mootdx 处理股票 {stock} 失败: {e}")
-                continue
-                
-        if not mktcap_data:
-            raise RuntimeError("Mootdx 未能获取任何有效的股票数据")
-            
-        return pd.DataFrame(mktcap_data)
-        
-    except Exception as e:
-        raise RuntimeError(f"Mootdx 获取市值快照失败: {e}")
-
-def _get_mktcap_fallback() -> pd.DataFrame:
-    """使用多种数据源的市值快照获取，按优先级尝试"""
-    sources = [
-        ("AKShare", _get_mktcap_ak),
-        ("TuShare", _get_mktcap_tushare), 
-        ("Mootdx", _get_mktcap_mootdx)
-    ]
-    
-    for source_name, source_func in sources:
-        try:
-            logger.info(f"尝试使用 {source_name} 获取市值数据...")
-            df = source_func()
-            if not df.empty:
-                logger.info(f"成功从 {source_name} 获取到 {len(df)} 只股票的市值数据")
-                return df
-        except Exception as e:
-            logger.warning(f"{source_name} 获取市值失败: {e}")
-            continue
-    
-    # 如果所有数据源都失败，尝试从本地缓存获取历史数据
-    logger.warning("所有市值数据源都失败，尝试使用本地缓存...")
-    return _get_mktcap_from_cache()
-
-def _get_mktcap_from_cache() -> pd.DataFrame:
-    """从本地缓存文件获取历史市值数据作为最后备选"""
-    cache_file = Path("mktcap_cache.json")
-    
-    if cache_file.exists():
-        try:
-            with open(cache_file, 'r', encoding='utf-8') as f:
-                cache_data = json.load(f)
-                
-            # 检查缓存时间（不超过7天）
-            cache_date = dt.datetime.fromisoformat(cache_data.get('date', '2020-01-01'))
-            if (dt.datetime.now() - cache_date).days <= 7:
-                df = pd.DataFrame(cache_data['data'])
-                logger.info(f"从缓存获取到 {len(df)} 只股票的市值数据（缓存日期: {cache_date.date()}）")
-                return df
-            else:
-                logger.warning("缓存数据过期（超过7天），无法使用")
-        except Exception as e:
-            logger.warning(f"读取市值缓存失败: {e}")
-    
-    # 最后的备选方案：创建一个基础的股票列表（无市值筛选）
-    logger.warning("所有市值数据源和缓存都不可用，使用预设股票列表")
-    return pd.DataFrame({
-        'code': ['000001', '000002', '600000', '600036', '600519', '000858'],
-        'mktcap': [1e11] * 6  # 给一个默认大市值确保能通过筛选
-    })
-
-def _save_mktcap_cache(df: pd.DataFrame) -> None:
-    """保存市值数据到本地缓存"""
-    try:
-        cache_data = {
-            'date': dt.datetime.now().isoformat(),
-            'data': df.to_dict('records')
-        }
-        with open("mktcap_cache.json", 'w', encoding='utf-8') as f:
-            json.dump(cache_data, f, ensure_ascii=False, indent=2)
-        logger.info(f"已保存 {len(df)} 只股票的市值数据到本地缓存")
-    except Exception as e:
-        logger.warning(f"保存市值缓存失败: {e}")
+# 注：市值数据现在通过 data_cache_manager.py 中的股票信息缓存系统统一管理
 
 # --------------------------- 股票池筛选 --------------------------- #
 
@@ -201,15 +59,28 @@ def get_constituents(
     min_cap: float,
     max_cap: float,
     small_player: bool,
-    mktcap_df: Optional[pd.DataFrame] = None,
 ) -> List[str]:
-    df = mktcap_df if mktcap_df is not None else _get_mktcap_fallback()
-
-    cond = (df["mktcap"] >= min_cap) & (df["mktcap"] <= max_cap)
-    if small_player:
-        cond &= ~df["code"].str.startswith(("300", "301", "688", "8", "4"))
-
-    codes = df.loc[cond, "code"].str.zfill(6).tolist()
+    """根据市值筛选股票池"""
+    
+    try:
+        # 使用新的股票信息缓存系统
+        stock_cache = get_stock_cache_manager()
+        stocks = stock_cache.get_stocks_by_market_cap(min_cap, max_cap)
+        
+        codes = []
+        for stock in stocks:
+            code = stock['code']
+            # 如果需要排除小盘股
+            if small_player and code.startswith(("300", "301", "688", "8", "4")):
+                continue
+            codes.append(code)
+        
+        logger.info(f"从缓存筛选得到 {len(codes)} 只股票")
+        
+    except Exception as e:
+        logger.error(f"使用缓存筛选失败: {e}")
+        logger.error("请先运行 'python data_cache_manager.py --update' 更新股票信息缓存")
+        codes = []  # 返回空列表而不是使用旧的回退方法
 
     # 附加股票池 appendix.json
     try:
@@ -217,10 +88,12 @@ def get_constituents(
             appendix_codes = json.load(f)["data"]
     except FileNotFoundError:
         appendix_codes = []
-    codes = list(dict.fromkeys(appendix_codes + codes))  # 去重保持顺序
-
-    logger.info("筛选得到 %d 只股票", len(codes))
-    return codes
+    
+    # 合并并去重
+    all_codes = list(dict.fromkeys(appendix_codes + codes))
+    
+    logger.info("最终筛选得到 %d 只股票", len(all_codes))
+    return all_codes
 
 # --------------------------- 历史 K 线抓取 --------------------------- #
 COLUMN_MAP_HIST_AK = {
@@ -451,6 +324,86 @@ def _get_kline_mootdx_offline(code: str, start: str, end: str, adjust: str, freq
     df = df.sort_values("date").reset_index(drop=True)    
     return df[required_cols]
 
+def _get_kline_baostock(code: str, start: str, end: str, adjust: str) -> pd.DataFrame:
+    """Baostock获取K线数据"""
+    try:
+        # 登录baostock系统
+        lg = bs.login()
+        if lg.error_code != '0':
+            raise RuntimeError(f"Baostock登录失败: {lg.error_msg}")
+        
+        # 转换股票代码格式
+        if code.startswith(('60', '68', '9')):
+            bs_code = f"sh.{code.zfill(6)}"
+        else:
+            bs_code = f"sz.{code.zfill(6)}"
+        
+        # 转换日期格式
+        start_date = pd.to_datetime(start, format="%Y%m%d").strftime('%Y-%m-%d')
+        end_date = pd.to_datetime(end, format="%Y%m%d").strftime('%Y-%m-%d')
+        
+        # 设置复权类型
+        adjustflag = "3"  # 默认后复权
+        if adjust == "":
+            adjustflag = "3"  # 后复权
+        elif adjust.lower() == "qfq":
+            adjustflag = "1"  # 前复权  
+        elif adjust.lower() == "hfq":
+            adjustflag = "2"  # 后复权
+        
+        # 获取K线数据
+        rs = bs.query_history_k_data_plus(
+            bs_code,
+            "date,code,open,high,low,close,preclose,volume,amount,adjustflag,turn,tradestatus,pctChg,isST",
+            start_date=start_date,
+            end_date=end_date,
+            frequency="d",
+            adjustflag=adjustflag
+        )
+        
+        if rs.error_code != '0':
+            raise RuntimeError(f"Baostock获取K线数据失败: {rs.error_msg}")
+        
+        # 转换为DataFrame
+        data_list = []
+        while (rs.error_code == '0') & rs.next():
+            data_list.append(rs.get_row_data())
+        
+        # 登出系统
+        bs.logout()
+        
+        if not data_list:
+            return pd.DataFrame()
+        
+        df = pd.DataFrame(data_list, columns=rs.fields)
+        
+        # 过滤掉停牌和异常交易状态的数据
+        df = df[df['tradestatus'] == '1']  # 1表示正常交易
+        
+        if df.empty:
+            return pd.DataFrame()
+        
+        # 数据类型转换
+        df['date'] = pd.to_datetime(df['date'])
+        for col in ['open', 'high', 'low', 'close', 'volume']:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
+        
+        # 过滤掉无效数据
+        df = df.dropna(subset=['open', 'high', 'low', 'close'])
+        
+        # 选择需要的列
+        df = df[['date', 'open', 'close', 'high', 'low', 'volume']].copy()
+        
+        return df.sort_values("date").reset_index(drop=True)
+        
+    except Exception as e:
+        # 确保登出
+        try:
+            bs.logout()
+        except:
+            pass
+        raise RuntimeError(f"Baostock获取K线数据失败: {e}")
+
 def _get_kline_mootdx(code: str, start: str, end: str, adjust: str, freq_code: int, offline_mode: bool = False, tdx_dir: str = None) -> pd.DataFrame:
     """Mootdx统一入口：根据模式选择在线或离线获取K线数据"""
     if offline_mode:
@@ -474,10 +427,12 @@ def get_kline(
         return _get_kline_tushare(code, start, end, adjust)
     elif datasource == "akshare":
         return _get_kline_akshare(code, start, end, adjust)
+    elif datasource == "baostock":
+        return _get_kline_baostock(code, start, end, adjust)
     elif datasource == "mootdx":        
         return _get_kline_mootdx(code, start, end, adjust, freq_code, offline_mode, tdx_dir)
     else:
-        raise ValueError("datasource 仅支持 'tushare', 'akshare' 或 'mootdx'")
+        raise ValueError("datasource 仅支持 'tushare', 'akshare', 'baostock' 或 'mootdx'")
 
 # ---------- 数据校验 ---------- #
 
@@ -550,7 +505,7 @@ def fetch_one(
 
 def main():
     parser = argparse.ArgumentParser(description="按市值筛选 A 股并抓取历史 K 线")
-    parser.add_argument("--datasource", choices=["tushare", "akshare", "mootdx"], default="tushare", help="历史 K 线数据源")
+    parser.add_argument("--datasource", choices=["tushare", "akshare", "baostock", "mootdx"], default="baostock", help="历史 K 线数据源")
     parser.add_argument("--frequency", type=int, choices=list(_FREQ_MAP.keys()), default=4, help="K线频率编码，参见说明")
     parser.add_argument("--exclude-gem", default=True, help="True则排除创业板/科创板/北交所")
     parser.add_argument("--min-mktcap", type=float, default=5e9, help="最小总市值（含），单位：元")
@@ -583,23 +538,16 @@ def main():
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # ---------- 市值快照 & 股票池 ---------- #
+    # ---------- 股票池筛选 ---------- #
     if args.ignore_mktcap:
         logger.info("忽略市值筛选，跳过市值数据获取")
-        mktcap_df = pd.DataFrame()  # 空的市值数据框
         codes_from_filter = []  # 不通过市值筛选获取股票
     else:
-        mktcap_df = _get_mktcap_fallback()
-        
-        # 保存成功获取的市值数据到缓存
-        if not mktcap_df.empty and len(mktcap_df) > 100:  # 只有数据充足时才缓存
-            _save_mktcap_cache(mktcap_df)    
-
+        # 使用新的股票信息缓存系统进行筛选
         codes_from_filter = get_constituents(
             args.min_mktcap,
             args.max_mktcap,
             args.exclude_gem,
-            mktcap_df=mktcap_df,
         )    
     # 加上本地已有的股票，确保旧数据也能更新
     local_codes = [p.stem for p in out_dir.glob("*.csv")]

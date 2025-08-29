@@ -5,7 +5,12 @@
       "WebFetch(domain:www.mootdx.com)",
       "Bash(python:*)",
       "Bash(rd:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(pip install:*)",
+      "Bash(chmod:*)",
+      "Bash(timeout:*)",
+      "Bash(echo \"\n# 基本智能重试更新（默认参数）\npython data_cache_manager.py --gradual-retry\n\n# 自定义参数的智能重试更新  \npython data_cache_manager.py --gradual-retry --delay 5 --max-failures 5\n\n# 与强制更新结合使用\npython data_cache_manager.py --update --gradual-retry --delay 3 --max-failures 2\n\n# 查看帮助了解所有参数\npython data_cache_manager.py --help\n\")",
+      "Bash(echo:*)"
     ],
     "deny": [],
     "ask": []

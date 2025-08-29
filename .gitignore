@@ -27,10 +27,6 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# 数据文件
-data/
-*.csv
-
 # 日志文件
 *.log
 

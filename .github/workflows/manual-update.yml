@@ -1,0 +1,80 @@
+name: Manual Market Data Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: '强制更新缓存 (忽略缓存有效期)'
+        type: boolean
+        default: false
+      datasource:
+        description: '数据源选择'
+        type: choice
+        options:
+          - 'baostock'
+          - 'akshare'
+          - 'tushare'
+        default: 'baostock'
+
+jobs:
+  manual-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Show current cache status
+      run: |
+        echo "=== 当前缓存状态 ==="
+        python data_cache_manager.py --status
+        
+    - name: Update stock data cache
+      run: |
+        echo "使用数据源: ${{ github.event.inputs.datasource }}"
+        echo "强制更新: ${{ github.event.inputs.force_update }}"
+        
+        # 设置数据源
+        python get_datasource.py ${{ github.event.inputs.datasource }}
+        
+        # 执行更新
+        if [ "${{ github.event.inputs.force_update }}" = "true" ]; then
+          echo "执行强制更新..."
+          python data_cache_manager.py --update --max-stocks 1000
+        else
+          echo "执行条件更新..."
+          if python data_cache_manager.py --status | grep -q "是否有效: 否"; then
+            python data_cache_manager.py --update --max-stocks 1000
+          else
+            echo "缓存仍然有效，跳过更新"
+          fi
+        fi
+        
+    - name: Show updated cache status
+      run: |
+        echo "=== 更新后缓存状态 ==="
+        python data_cache_manager.py --status
+        
+    - name: Commit and push changes (if any)
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action Manual Update"
+        git add stock_info_cache.json
+        
+        if git diff --cached --quiet; then
+          echo "没有文件变更，无需提交"
+        else
+          git commit -m "手动更新股票信息缓存 - ${{ github.event.inputs.datasource }} 数据源 $(date '+%Y-%m-%d %H:%M:%S')"
+          git push
+          echo "已提交缓存更新"
+        fi

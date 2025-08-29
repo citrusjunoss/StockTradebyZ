@@ -24,6 +24,47 @@ def read_file_safe(filepath: str) -> str:
     return ""
 
 
+def load_picks_from_cache() -> Dict[str, Any]:
+    """从cache目录加载结构化的选股结果"""
+    cache_results = {}
+    cache_dir = Path("cache")
+    
+    if not cache_dir.exists():
+        return cache_results
+    
+    try:
+        # 查找所有最新的选股结果文件
+        latest_files = list(cache_dir.glob("picks_*_latest.json"))
+        
+        for cache_file in latest_files:
+            try:
+                with open(cache_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                
+                alias = data.get("selector_alias", "未知策略")
+                cache_results[alias] = {
+                    'alias': alias,
+                    'date': data.get("trade_date", ""),
+                    'generated_time': data.get("generated_time", ""),
+                    'count': data.get("total_stocks", 0),
+                    'stocks': data.get("selected_stocks", []),
+                    'stock_details': data.get("stock_details", {}),
+                    'source': 'cache'  # 标记数据来源
+                }
+                
+            except Exception as e:
+                print(f"读取缓存文件 {cache_file} 失败: {e}")
+                continue
+        
+        if cache_results:
+            print(f"从cache目录加载了 {len(cache_results)} 个选股结果")
+        
+    except Exception as e:
+        print(f"读取cache目录失败: {e}")
+    
+    return cache_results
+
+
 def parse_stock_results(content: str) -> Dict[str, Any]:
     """解析选股结果，提取每个战法的详细信息"""
     results = {}
@@ -111,14 +152,36 @@ def get_strategy_color(strategy_name: str) -> str:
     return colors.get(strategy_name, "#34495e")
 
 
-def generate_stock_item(stock_code: str) -> str:
+def generate_stock_item(stock_code: str, stock_details: Dict[str, Any] = None) -> str:
     """生成单个股票展示项的HTML"""
     try:
-        datasource = get_current_datasource()
-        stock_info = get_stock_display_info(stock_code, datasource)
-        name = stock_info['name']
-        industry = stock_info['industry']
-        market = stock_info['market']
+        # 优先使用缓存的详细信息
+        if stock_details and stock_code in stock_details:
+            detail = stock_details[stock_code]
+            name = detail.get('name', f'股票{stock_code}')
+            industry = detail.get('industry', '未知')
+            market = detail.get('market', '未知')
+            close_price = detail.get('close_price') or detail.get('latest_close')
+            market_cap = detail.get('market_cap')
+            pe_ttm = detail.get('pe_ttm')
+            
+            # 构建价格和估值信息
+            price_info = ""
+            if close_price:
+                price_info += f"💰 {close_price:.2f}"
+            if market_cap:
+                market_cap_yi = market_cap / 1e8  # 转换为亿元
+                price_info += f" | 📊 {market_cap_yi:.1f}亿"
+            if pe_ttm and pe_ttm > 0:
+                price_info += f" | PE {pe_ttm:.1f}"
+        else:
+            # 回退到原有方式
+            datasource = get_current_datasource()
+            stock_info = get_stock_display_info(stock_code, datasource)
+            name = stock_info['name']
+            industry = stock_info['industry']
+            market = stock_info['market']
+            price_info = ""
         
         return f"""
         <div class="stock-item" data-stock="{stock_code}" onclick="searchStock('{stock_code}')">
@@ -130,6 +193,7 @@ def generate_stock_item(stock_code: str) -> str:
                 <span class="stock-industry">{industry}</span>
                 <span class="stock-market">{market}</span>
             </div>
+            {f'<div class="stock-price">{price_info}</div>' if price_info else ''}
         </div>
         """
     except Exception as e:
@@ -171,14 +235,30 @@ def generate_strategy_card(strategy_name: str, data: Dict[str, Any], index: int)
     # 处理股票列表
     if data['stocks']:
         stocks_html = ""
+        stock_details = data.get('stock_details', {})
         for stock in data['stocks']:
-            stocks_html += generate_stock_item(stock)
+            stocks_html += generate_stock_item(stock, stock_details)
         
-        # 获取行业分布
-        industry_dist = get_industry_distribution(data['stocks'])
-        industry_summary = "、".join([f"{industry}({count})" for industry, count in list(industry_dist.items())[:3]])
-        if len(industry_dist) > 3:
-            industry_summary += f" 等{len(industry_dist)}个行业"
+        # 获取行业分布，优先使用缓存中的详细信息
+        if stock_details:
+            industry_dist = {}
+            for stock_code in data['stocks']:
+                if stock_code in stock_details:
+                    industry = stock_details[stock_code].get('industry', '未知')
+                    industry_dist[industry] = industry_dist.get(industry, 0) + 1
+            
+            if industry_dist:
+                industry_summary = "、".join([f"{industry}({count})" for industry, count in list(industry_dist.items())[:3]])
+                if len(industry_dist) > 3:
+                    industry_summary += f" 等{len(industry_dist)}个行业"
+            else:
+                industry_summary = "待更新"
+        else:
+            # 回退到原有方式
+            industry_dist = get_industry_distribution(data['stocks'])
+            industry_summary = "、".join([f"{industry}({count})" for industry, count in list(industry_dist.items())[:3]])
+            if len(industry_dist) > 3:
+                industry_summary += f" 等{len(industry_dist)}个行业"
     else:
         stocks_html = '<div class="no-stocks">暂无选中股票</div>'
         industry_summary = "暂无"
@@ -275,9 +355,14 @@ def generate_daily_report(date_str: str = None, html_dir: Path = None):
     # 确保输出目录存在
     html_dir.mkdir(exist_ok=True)
     
-    # 读取选股结果
-    console_output = read_file_safe('select_results.log')
-    stock_results = parse_stock_results(console_output)
+    # 优先从缓存读取选股结果，如果缓存不可用则从日志文件解析
+    stock_results = load_picks_from_cache()
+    
+    # 如果缓存为空，回退到日志文件解析
+    if not stock_results:
+        print("缓存数据不可用，从日志文件解析选股结果...")
+        console_output = read_file_safe('select_results.log')
+        stock_results = parse_stock_results(console_output)
     
     # 获取统计信息
     stats = get_summary_stats(stock_results)
@@ -389,12 +474,13 @@ def generate_daily_report(date_str: str = None, html_dir: Path = None):
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 25px;
         }}
         
         .strategy-card {{
+            width: 100%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 20px;
@@ -492,21 +578,23 @@ def generate_daily_report(date_str: str = None, html_dir: Path = None):
         }}
         
         .stocks-list {{
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
         }}
         
         .stock-item {{
             background: rgba(255, 255, 255, 0.9);
             border: 1px solid rgba(52,152,219,0.2);
             border-radius: 12px;
-            padding: 12px 15px;
+            padding: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
+            min-height: 120px;
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
         }}
         
         .stock-item:hover {{
@@ -520,6 +608,7 @@ def generate_daily_report(date_str: str = None, html_dir: Path = None):
             display: flex;
             align-items: center;
             gap: 12px;
+            margin-bottom: 8px;
         }}
         
         .stock-code {{
@@ -541,10 +630,10 @@ def generate_daily_report(date_str: str = None, html_dir: Path = None):
         
         .stock-meta {{
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 2px;
-            text-align: right;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+            align-items: center;
         }}
         
         .stock-industry {{
@@ -553,6 +642,19 @@ def generate_daily_report(date_str: str = None, html_dir: Path = None):
             background: #ecf0f1;
             padding: 2px 8px;
             border-radius: 10px;
+        }}
+        
+        .stock-price {{
+            font-size: 0.85em;
+            color: #27ae60;
+            font-weight: 600;
+            padding: 8px 12px;
+            background-color: rgba(39, 174, 96, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(39, 174, 96, 0.1);
         }}
         
         .stock-market {{
@@ -617,20 +719,27 @@ def generate_daily_report(date_str: str = None, html_dir: Path = None):
                 font-size: 0.8em;
             }}
             
+            .stocks-list {{
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 10px;
+            }}
+            
             .stock-item {{
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
+                min-height: 100px;
+                padding: 12px;
             }}
             
             .stock-main {{
-                width: 100%;
+                margin-bottom: 6px;
             }}
             
             .stock-meta {{
-                align-items: flex-start;
-                text-align: left;
-                width: 100%;
+                margin-bottom: 6px;
+            }}
+            
+            .stock-price {{
+                font-size: 0.8em;
+                padding: 6px 10px;
             }}
         }}
     </style>

@@ -5,6 +5,7 @@ import importlib
 import json
 import logging
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Iterable, List
 
@@ -24,6 +25,75 @@ logger = logging.getLogger("select")
 
 
 # ---------- 工具 ----------
+
+def save_picks_to_cache(picks: List[str], alias: str, trade_date: pd.Timestamp, data: Dict[str, pd.DataFrame]) -> None:
+    """保存选股结果到cache目录"""
+    try:
+        cache_dir = Path("cache")
+        cache_dir.mkdir(exist_ok=True)
+        
+        # 创建结构化的选股结果
+        result_data = {
+            "trade_date": trade_date.strftime("%Y-%m-%d"),
+            "generated_time": datetime.now().isoformat(),
+            "selector_alias": alias,
+            "total_stocks": len(picks),
+            "selected_stocks": picks,
+            "stock_details": {}
+        }
+        
+        # 从股票信息缓存获取详细信息
+        try:
+            from data_cache_manager import StockDataCacheManager
+            stock_cache = StockDataCacheManager()
+            
+            for code in picks:
+                stock_info = stock_cache.get_stock_info(code)
+                if stock_info:
+                    result_data["stock_details"][code] = {
+                        "name": stock_info.get("name", "未知"),
+                        "industry": stock_info.get("industry", "未知"),
+                        "market": stock_info.get("market", "未知"),
+                        "close_price": stock_info.get("close_price"),
+                        "market_cap": stock_info.get("market_cap"),
+                        "pe_ttm": stock_info.get("pe_ttm"),
+                        "pb_mrq": stock_info.get("pb_mrq")
+                    }
+                
+                # 添加K线数据的最新价格（如果可用）
+                if code in data:
+                    latest_data = data[code].iloc[-1]
+                    if code not in result_data["stock_details"]:
+                        result_data["stock_details"][code] = {}
+                    
+                    result_data["stock_details"][code].update({
+                        "latest_close": float(latest_data.get("close", 0)),
+                        "latest_volume": float(latest_data.get("volume", 0)),
+                        "latest_date": latest_data.get("date").strftime("%Y-%m-%d") if pd.notna(latest_data.get("date")) else None
+                    })
+        
+        except Exception as e:
+            logger.warning(f"获取股票详细信息失败: {e}")
+        
+        # 保存到cache目录
+        date_str = trade_date.strftime("%Y%m%d")
+        cache_file = cache_dir / f"picks_{alias}_{date_str}.json"
+        
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(result_data, f, ensure_ascii=False, indent=2)
+        
+        logger.info(f"选股结果已缓存到: {cache_file}")
+        
+        # 同时更新最新结果的链接文件
+        latest_cache_file = cache_dir / f"picks_{alias}_latest.json"
+        with open(latest_cache_file, 'w', encoding='utf-8') as f:
+            json.dump(result_data, f, ensure_ascii=False, indent=2)
+        
+        logger.info(f"最新选股结果已更新: {latest_cache_file}")
+        
+    except Exception as e:
+        logger.error(f"保存选股结果到缓存失败: {e}")
+
 
 def load_data(data_dir: Path, codes: Iterable[str]) -> Dict[str, pd.DataFrame]:
     frames: Dict[str, pd.DataFrame] = {}
@@ -134,6 +204,9 @@ def main():
         logger.info("交易日: %s", trade_date.date())
         logger.info("符合条件股票数: %d", len(picks))
         logger.info("%s", ", ".join(picks) if picks else "无符合条件股票")
+        
+        # 保存选股结果到缓存
+        save_picks_to_cache(picks, alias, trade_date, data)
 
 
 if __name__ == "__main__":

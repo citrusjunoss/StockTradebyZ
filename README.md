@@ -6,29 +6,34 @@
 
 ## 目录
 
-* [项目简介](#项目简介)
-* [GitHub Actions 自动化](#github-actions-自动化)
-* [快速上手](#快速上手)
-
-  * [安装依赖](#安装依赖)
-  * [Tushare Token（可选）](#tushare-token可选)
-  * [Mootdx 运行前置步骤](#mootdx-运行前置步骤)
-  * [下载历史行情](#下载历史行情)
-  * [运行选股](#运行选股)
-* [参数说明](#参数说明)
-
-  * [`fetch_kline.py`](#fetch_klinepy)
-
-    * [K 线频率编码](#k-线频率编码)
-  * [`select_stock.py`](#select_stockpy)
-  * [内置策略参数](#内置策略参数)
-
-    * [1. BBIKDJSelector（少妇战法）](#1-bbikdjselector少妇战法)
-    * [2. PeakKDJSelector（填坑战法）](#2-peakkdjselector填坑战法)
-    * [3. BBIShortLongSelector（补票战法）](#3-bbishortlongselector补票战法)
-    * [4. BreakoutVolumeKDJSelector（TePu 战法）](#4-breakoutvolumekdjselectortepu-战法)
-* [项目结构](#项目结构)
-* [免责声明](#免责声明)
+- [Z哥战法的Python实现](#z哥战法的python实现)
+  - [目录](#目录)
+  - [项目简介](#项目简介)
+  - [GitHub Actions 自动化](#github-actions-自动化)
+    - [✨ 功能特性](#-功能特性)
+    - [🚀 快速启用](#-快速启用)
+    - [📋 工作流说明](#-工作流说明)
+  - [快速上手](#快速上手)
+    - [安装依赖](#安装依赖)
+    - [Tushare Token（可选）](#tushare-token可选)
+    - [数据源选择建议](#数据源选择建议)
+    - [Mootdx 运行前置步骤](#mootdx-运行前置步骤)
+    - [下载历史行情](#下载历史行情)
+    - [运行选股](#运行选股)
+    - [生成HTML报告](#生成html报告)
+    - [股票信息缓存](#股票信息缓存)
+    - [HTML文件管理](#html文件管理)
+  - [参数说明](#参数说明)
+    - [`fetch_kline.py`](#fetch_klinepy)
+      - [K 线频率编码](#k-线频率编码)
+    - [`select_stock.py`](#select_stockpy)
+    - [内置策略参数](#内置策略参数)
+      - [1. BBIKDJSelector（少妇战法）](#1-bbikdjselector少妇战法)
+      - [2. PeakKDJSelector（填坑战法）](#2-peakkdjselector填坑战法)
+      - [3. BBIShortLongSelector（补票战法）](#3-bbishortlongselector补票战法)
+      - [4. BreakoutVolumeKDJSelector（TePu 战法）](#4-breakoutvolumekdjselectortepu-战法)
+  - [项目结构](#项目结构)
+  - [免责声明](#免责声明)
 
 ---
 
