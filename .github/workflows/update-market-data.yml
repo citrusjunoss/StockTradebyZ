@@ -1,16 +1,15 @@
 name: Update Market Data Cache
 
 on:
-  # 每周一早上6点执行 (UTC时间, 北京时间14:00)
+  # 定时触发
   schedule:
+    # 每周一早上6点执行 (UTC时间, 北京时间14:00)
     - cron: '0 6 * * 1'
+    # 每天检查是否需要更新 (UTC时间每天早上2点, 北京时间10:00)
+    - cron: '0 2 * * *'
   
   # 允许手动触发
   workflow_dispatch:
-  
-  # 每天检查是否需要更新 (UTC时间每天早上2点, 北京时间10:00)
-  schedule:
-    - cron: '0 2 * * *'
 
 jobs:
   update-cache:
