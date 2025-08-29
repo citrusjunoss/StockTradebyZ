@@ -782,7 +782,15 @@ def generate_daily_report(date_str: str = None, html_dir: Path = None):
     
     <script>
         function searchStock(code) {{
-            window.open(`https://xueqiu.com/S/SH${{code}}`, '_blank');
+            // 根据股票代码判断市场
+            let market = 'SH';  // 默认上海
+            if (code.startsWith('00') || code.startsWith('30')) {{
+                market = 'SZ';  // 深圳
+            }} else if (code.startsWith('60') || code.startsWith('68') || code.startsWith('9')) {{
+                market = 'SH';  // 上海
+            }}
+            
+            window.open(`https://xueqiu.com/S/${{market}}${{code}}`, '_blank');
         }}
     </script>
 </body>
