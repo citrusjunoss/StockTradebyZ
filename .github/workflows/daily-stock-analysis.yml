@@ -9,6 +9,8 @@ on:
 jobs:
   stock-analysis:
     runs-on: ubuntu-latest
+    env:
+      DATASOURCE: baostock  # 数据源配置: mootdx, baostock, akshare
     permissions:
       contents: write
       pages: write
@@ -38,23 +40,24 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # - name: Detect best mootdx IP
-    #   run: |
-    #     echo "检测mootdx最佳服务器IP..."
-    #     python -m mootdx bestip -vv || echo "mootdx IP检测失败，继续执行"
-    #   continue-on-error: true
+    - name: Detect best mootdx IP (only for mootdx)
+      if: env.DATASOURCE == 'mootdx'
+      run: |
+        echo "检测mootdx最佳服务器IP..."
+        python -m mootdx bestip -vv || echo "mootdx IP检测失败，继续执行"
+      continue-on-error: true
 
-    # - name: Run fetch_kline
-    #   run: |
-    #     echo "开始执行 fetch_kline..."
-    #     python fetch_kline.py  --datasource mootdx --frequency 4 --exclude-gem false --min-mktcap 5e9  --max-mktcap +inf --start 20200101 --end today --out ./data --workers 10
-    #   continue-on-error: false
+    - name: Run fetch_kline
+      run: |
+        echo "开始执行 fetch_kline，使用数据源: ${{ env.DATASOURCE }}"
+        python fetch_kline.py --datasource ${{ env.DATASOURCE }} --frequency 4 --exclude-gem false --min-mktcap 5e9 --max-mktcap +inf --start 20200101 --end today --out ./data --workers 10
+      continue-on-error: false
 
-    # - name: Run select_stock
-    #   run: |
-    #     echo "开始执行 select_stock..."
-    #     python select_stock.py --data-dir ./data --config ./configs.json
-    #   continue-on-error: false
+    - name: Run select_stock
+      run: |
+        echo "开始执行 select_stock..."
+        python select_stock.py --data-dir ./data --config ./configs.json
+      continue-on-error: false
 
     - name: Generate HTML report
       run: |
