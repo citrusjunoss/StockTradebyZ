@@ -3,7 +3,7 @@ name: Daily Stock Analysis
 on:
   schedule:
     # 每天下午6点 (UTC 10:00, 北京时间18:00)
-    - cron: '0 10 * * *'
+    - cron: '0 11 * * *'
   workflow_dispatch: # 允许手动触发
 
 jobs:
@@ -42,9 +42,6 @@ jobs:
         python -m mootdx bestip -vv || echo "mootdx IP检测失败，继续执行"
       continue-on-error: true
 
-    - name: Create data directory
-      run: mkdir -p data
-
     - name: Run fetch_kline
       run: |
         echo "开始执行 fetch_kline..."
@@ -64,6 +61,8 @@ jobs:
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
+      with:
+        enablement: true
 
     - name: List generated files
       run: |
@@ -94,16 +93,44 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: actions/deploy-pages@v4
 
+    - name: Cleanup old files (keep only last 5 days)
+      run: |
+        echo "清理超过5天的缓存和报告文件..."
+        
+        # 清理 cache 目录中超过5天的文件
+        if [ -d "cache" ]; then
+          echo "清理 cache 目录..."
+          find cache -name "*.json" -type f -mtime +5 -delete
+          find cache -name "*.csv" -type f -mtime +5 -delete
+          echo "cache 目录清理完成"
+        fi
+        
+        # 清理 reports 目录中超过5天的文件
+        if [ -d "reports" ]; then
+          echo "清理 reports 目录..."
+          find reports -name "*.html" -type f -mtime +5 -delete
+          find reports -name "*.json" -type f -mtime +5 -delete
+          echo "reports 目录清理完成"
+        fi
+        
+        # 显示清理后的文件列表
+        echo "=== 清理后的文件列表 ==="
+        if [ -d "cache" ]; then
+          echo "cache 目录剩余文件:"
+          ls -la cache/ || echo "cache 目录为空"
+        fi
+        if [ -d "reports" ]; then
+          echo "reports 目录剩余文件:"
+          ls -la reports/ || echo "reports 目录为空"
+        fi
+
     - name: Commit results (if any changes)
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         
         # 添加生成的文件和目录
-        git add index.html
-        git add reports/
-        git add stock_info_cache.json
-        git add -A
+        git add .
         
         # 检查是否有变更
         if git diff --staged --quiet; then

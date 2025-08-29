@@ -30,9 +30,6 @@ MANIFEST
 # 日志文件
 *.log
 
-# 缓存和配置文件
-stock_info_cache.json
-datasource_config.json
 
 # 环境变量文件
 .env
