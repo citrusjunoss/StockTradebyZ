@@ -3,10 +3,8 @@ name: Update Market Data Cache
 on:
   # 定时触发
   schedule:
-    # 每周一早上6点执行 (UTC时间, 北京时间14:00)
-    - cron: '0 6 * * 1'
-    # 每天检查是否需要更新 (UTC时间每天早上2点, 北京时间10:00)
-    - cron: '0 2 * * *'
+    # 北京时间周日早上2点执行更新任务 (UTC时间周六18:00)
+    - cron: '0 18 * * 6'
   
   # 允许手动触发
   workflow_dispatch:
@@ -52,7 +50,7 @@ jobs:
       if: steps.check-cache.outputs.need_update == 'true' || github.event_name == 'workflow_dispatch'
       run: |
         echo "开始更新股票信息缓存..."
-        python data_cache_manager.py --update --max-stocks 1000
+        python data_cache_manager.py --update --gradual --delay 0
         
     - name: Check if cache files changed
       id: check-changes
