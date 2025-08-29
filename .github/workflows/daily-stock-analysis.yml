@@ -10,7 +10,7 @@ jobs:
   stock-analysis:
     runs-on: ubuntu-latest
     env:
-      DATASOURCE: baostock  # 数据源配置: mootdx, baostock, akshare
+      DATASOURCE: ${{ vars.DATASOURCE || 'mootdx' }}  # 从GitHub环境变量获取，默认baostock
     permissions:
       contents: write
       pages: write
