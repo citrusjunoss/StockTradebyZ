@@ -13,6 +13,8 @@ jobs:
       contents: write
       pages: write
       id-token: write
+      actions: read
+      deployments: write
 
     steps:
     - name: Checkout repository
