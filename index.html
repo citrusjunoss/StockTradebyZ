@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockTradebyZ - 选股报告中心</title>
     <style>
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -19,7 +19,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .container {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
@@ -30,25 +30,25 @@
             max-width: 600px;
             width: 90%;
         }
-        
+
         .logo {
             font-size: 4em;
             margin-bottom: 20px;
         }
-        
+
         h1 {
             color: #2c3e50;
             font-size: 2.5em;
             margin-bottom: 15px;
             font-weight: 700;
         }
-        
+
         .subtitle {
             color: #7f8c8d;
             font-size: 1.1em;
             margin-bottom: 40px;
         }
-        
+
         .date-selector {
             background: white;
             border: 2px solid #e9ecef;
@@ -60,12 +60,12 @@
             outline: none;
             transition: all 0.3s ease;
         }
-        
+
         .date-selector:focus {
             border-color: #3498db;
             box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
         }
-        
+
         .view-button {
             background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
@@ -78,17 +78,17 @@
             transition: all 0.3s ease;
             width: 100%;
         }
-        
+
         .view-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(52,152,219,0.3);
         }
-        
+
         .view-button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
         }
-        
+
         .latest-link {
             display: inline-block;
             margin-top: 20px;
@@ -97,11 +97,11 @@
             font-weight: 600;
             transition: color 0.3s ease;
         }
-        
+
         .latest-link:hover {
             color: #2980b9;
         }
-        
+
         .footer {
             margin-top: 40px;
             color: #7f8c8d;
@@ -114,31 +114,31 @@
         <div class="logo">📊</div>
         <h1>StockTradebyZ</h1>
         <div class="subtitle">智能选股报告中心</div>
-        
+
         <select class="date-selector" id="dateSelector" onchange="updateButton()">
             <option value="">选择查看日期</option>
-            <option value="2025-09-16">09-16 (Tue)</option>
+            <option value="2025-09-16" selected>2025-09-16</option>
         </select>
-        
+
         <button class="view-button" id="viewButton" onclick="viewReport()" disabled>
             查看选股报告
         </button>
-        
-        <a href="reports/report-2025-09-16.html" class="latest-link">📈 查看最新报告</a>
-        
+
+       <a href="industry.html" class="latest-link">🧭 行业数据</a>
+
         <div class="footer">
             <p>🤖 Powered by GitHub Actions</p>
             <p>每日下午7点自动更新</p>
         </div>
     </div>
-    
+
     <script>
         function updateButton() {
             const selector = document.getElementById('dateSelector');
             const button = document.getElementById('viewButton');
             button.disabled = !selector.value;
         }
-        
+
         function viewReport() {
             const selector = document.getElementById('dateSelector');
             if (selector.value) {

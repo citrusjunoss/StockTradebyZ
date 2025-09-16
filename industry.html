@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>行业股票数量分布图</title>
+    <style>
+    
+        body {
+            font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .chart-container {
+            position: relative;
+            height: 600px;
+            border-left: 2px solid #333;
+            border-bottom: 2px solid #333;
+            margin: 40px 0;
+            padding: 10px;
+        }
+        .bar-container {
+            display: flex;
+            align-items: flex-end;
+            height: 100%;
+            gap: 2px;
+            padding-left: 40px;
+        }
+        .bar {
+            background: linear-gradient(to top, #ed5126, #fb5e34);
+            border-radius: 3px 3px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-width: 15px;
+            flex: 1;
+        }
+        .bar:hover {
+            background: linear-gradient(to top, #bc1b00, #ed5126);
+            transform: translateY(-5px);
+        }
+        .bar-label {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(0) rotate(-90deg);
+            font-size: 14px;
+            color: #fff;
+            white-space: nowrap;
+            transform-origin: left center;
+        }
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+            background: rgba(255,255,255,0.9);
+            padding: 2px 5px;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .y-axis {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 40px;
+        }
+        .y-label {
+            position: absolute;
+            right: 5px;
+            transform: translateY(50%);
+            font-size: 12px;
+            color: #666;
+        }
+        .axis-title {
+            position: absolute;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+        .x-axis-title {
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .y-axis-title {
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            transform-origin: center;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #910000;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        .controls {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .control-btn {
+            background: #ff5529;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .control-btn:hover {
+            background: #c20000;
+        }
+        .control-btn.active {
+            background: #c10000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">行业股票数量分布图</div>
+        <div class="subtitle">生成时间: 2025-09-16 14:38:42</div>
+        
+        <div class="controls">
+            <button class="control-btn active" onclick="sortData('original')">原始顺序</button>
+            <button class="control-btn" onclick="sortData('desc')">股票数↓</button>
+            <button class="control-btn" onclick="sortData('asc')">股票数↑</button>
+            <button class="control-btn" onclick="sortData('name')">行业名称</button>
+        </div>
+        
+        <div class="chart-container">
+            <div class="y-axis" id="yAxis"></div>
+            <div class="axis-title y-axis-title">股票数量</div>
+            <div class="axis-title x-axis-title">行业</div>
+            <div class="bar-container" id="barContainer"></div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value">49</div>
+                <div class="stat-label">行业总数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">257</div>
+                <div class="stat-label">股票总数</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">5.2</div>
+                <div class="stat-label">平均每行业</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">31</div>
+                <div class="stat-label">最大股票数</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const originalData = [{"行业": "C26化学原料和化学制品制造业", "股票数": 31}, {"行业": "C37铁路、船舶、航空航天和其他运输设备制造业", "股票数": 15}, {"行业": "C38电气机械和器材制造业", "股票数": 15}, {"行业": "C35专用设备制造业", "股票数": 14}, {"行业": "J66货币金融服务", "股票数": 13}, {"行业": "C36汽车制造业", "股票数": 11}, {"行业": "C15酒、饮料和精制茶制造业", "股票数": 11}, {"行业": "D44电力、热力生产和供应业", "股票数": 10}, {"行业": "C27医药制造业", "股票数": 10}, {"行业": "C39计算机、通信和其他电子设备制造业", "股票数": 8}, {"行业": "C13农副食品加工业", "股票数": 7}, {"行业": "F52零售业", "股票数": 7}, {"行业": "G54道路运输业", "股票数": 7}, {"行业": "F51批发业", "股票数": 6}, {"行业": "C14食品制造业", "股票数": 6}, {"行业": "C30非金属矿物制品业", "股票数": 5}, {"行业": "C34通用设备制造业", "股票数": 5}, {"行业": "I65软件和信息技术服务业", "股票数": 5}, {"行业": "C33金属制品业", "股票数": 4}, {"行业": "R86新闻和出版业", "股票数": 4}, {"行业": "C22造纸和纸制品业", "股票数": 4}, {"行业": "L72商务服务业", "股票数": 4}, {"行业": "N78公共设施管理业", "股票数": 4}, {"行业": "C18纺织服装、服饰业", "股票数": 4}, {"行业": "C29橡胶和塑料制品业", "股票数": 3}, {"行业": "I63电信、广播电视和卫星传输服务", "股票数": 3}, {"行业": "B07石油和天然气开采业", "股票数": 3}, {"行业": "G55水上运输业", "股票数": 3}, {"行业": "C17纺织业", "股票数": 3}, {"行业": "J68保险业", "股票数": 3}, {"行业": "C28化学纤维制造业", "股票数": 2}, {"行业": "C41其他制造业", "股票数": 2}, {"行业": "C21家具制造业", "股票数": 2}, {"行业": "I64互联网和相关服务", "股票数": 2}, {"行业": "S91综合", "股票数": 2}, {"行业": "C40仪器仪表制造业", "股票数": 2}, {"行业": "J67资本市场服务", "股票数": 2}, {"行业": "N77生态保护和环境治理业", "股票数": 2}, {"行业": "C32有色金属冶炼和压延加工业", "股票数": 2}, {"行业": "D46水的生产和供应业", "股票数": 2}, {"行业": "P83教育", "股票数": 1}, {"行业": "G59装卸搬运和仓储业", "股票数": 1}, {"行业": "C24文教、工美、体育和娱乐用品制造业", "股票数": 1}, {"行业": "G56航空运输业", "股票数": 1}, {"行业": "M74专业技术服务业", "股票数": 1}, {"行业": "E48土木工程建筑业", "股票数": 1}, {"行业": "C25石油、煤炭及其他燃料加工业", "股票数": 1}, {"行业": "B09有色金属矿采选业", "股票数": 1}, {"行业": "H62餐饮业", "股票数": 1}];
+        let currentData = [...originalData];
+        
+        function createYAxis(maxValue) {
+            const yAxis = document.getElementById('yAxis');
+            yAxis.innerHTML = '';
+            
+            const yAxisSteps = 10;
+            for (let i = 0; i <= yAxisSteps; i++) {
+                const value = Math.round((maxValue / yAxisSteps) * i);
+                const yLabel = document.createElement('div');
+                yLabel.className = 'y-label';
+                yLabel.textContent = value;
+                yLabel.style.bottom = `${(i / yAxisSteps) * 100}%`;
+                yAxis.appendChild(yLabel);
+            }
+        }
+        
+        function createBars(data) {
+            const barContainer = document.getElementById('barContainer');
+            barContainer.innerHTML = '';
+            
+            const maxStocks = Math.max(...data.map(d => d.股票数));
+            createYAxis(maxStocks);
+            
+            data.forEach((item, index) => {
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                
+                const height = (item.股票数 / maxStocks) * 100;
+                bar.style.height = `${height}%`;
+                
+                const valueLabel = document.createElement('div');
+                valueLabel.className = 'bar-value';
+                valueLabel.textContent = item.股票数;
+                bar.appendChild(valueLabel);
+                
+                const label = document.createElement('div');
+                label.className = 'bar-label';
+                let shortName = item.行业;
+                if (shortName.length > 15) {
+                    shortName = shortName.substring(0, 12) + '...';
+                }
+                label.textContent = shortName;
+                bar.appendChild(label);
+                
+                bar.title = `${item.行业}: ${item.股票数}只股票`;
+                
+                const intensity = item.股票数 / maxStocks;
+                const hue = 120;
+                const saturation = 50 + (intensity * 30);
+                const lightness = 70 - (intensity * 20);
+                // bar.style.background = `linear-gradient(to top, hsl(${hue}, ${saturation}%, ${lightness-10}%), hsl(${hue}, ${saturation}%, ${lightness}%))`;
+                
+                barContainer.appendChild(bar);
+            });
+        }
+        
+        function sortData(type) {
+            // 更新按钮状态
+            document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            switch(type) {
+                case 'original':
+                    currentData = [...originalData];
+                    break;
+                case 'desc':
+                    currentData = [...originalData].sort((a, b) => b.股票数 - a.股票数);
+                    break;
+                case 'asc':
+                    currentData = [...originalData].sort((a, b) => a.股票数 - b.股票数);
+                    break;
+                case 'name':
+                    currentData = [...originalData].sort((a, b) => a.行业.localeCompare(b.行业));
+                    break;
+            }
+            createBars(currentData);
+        }
+        
+        window.onload = function() {
+            createBars(currentData);
+        };
+    </script>
+</body>
+</html>

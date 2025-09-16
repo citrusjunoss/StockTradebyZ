@@ -80,6 +80,13 @@ jobs:
         echo "开始执行 select_stock..."
         python select_stock.py --data-dir ./data --config ./configs.json
       continue-on-error: false
+    
+    - name: Run select_Industry
+      if: steps.check-weekend.outputs.is_weekend == 'false'
+      run: |
+        echo "开始执行 select_Industry..."
+        python SelectorShift.py
+      continue-on-error: false
 
     - name: Generate HTML report
       if: steps.check-weekend.outputs.is_weekend == 'false'

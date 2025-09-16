@@ -45,8 +45,9 @@ class StockInfoCache:
         try:
             if self.cache_file.exists():
                 with open(self.cache_file, 'r', encoding='utf-8') as f:
-                    self.cache = json.load(f)
-                logger.info(f"已加载股票信息缓存，包含 {len(self.cache)} 只股票")
+                    data = json.load(f) 
+                    self.cache = data['stocks']
+                    logger.info(f"已加载股票信息缓存，包含 {len(self.cache)} 只股票")
         except Exception as e:
             logger.warning(f"加载缓存失败: {e}")
             self.cache = {}
