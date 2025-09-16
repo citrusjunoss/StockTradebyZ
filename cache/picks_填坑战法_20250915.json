@@ -1,8 +1,36 @@
 {
   "trade_date": "2025-09-15",
-  "generated_time": "2025-09-15T11:25:20.513661",
+  "generated_time": "2025-09-16T09:20:57.239681",
   "selector_alias": "填坑战法",
-  "total_stocks": 0,
-  "selected_stocks": [],
-  "stock_details": {}
+  "total_stocks": 2,
+  "selected_stocks": [
+    "002953",
+    "000425"
+  ],
+  "stock_details": {
+    "002953": {
+      "name": "日丰股份",
+      "industry": "C38电气机械和器材制造业",
+      "market": "深圳",
+      "close_price": 14.64,
+      "market_cap": 11712000000.0,
+      "pe_ttm": 36.197159,
+      "pb_mrq": 3.493821,
+      "latest_close": 12.73,
+      "latest_volume": 121748.0,
+      "latest_date": "2025-09-15"
+    },
+    "000425": {
+      "name": "徐工机械",
+      "industry": "C35专用设备制造业",
+      "market": "深圳",
+      "close_price": 9.6,
+      "market_cap": 7680000000.0,
+      "pe_ttm": 17.634594,
+      "pb_mrq": 1.836703,
+      "latest_close": 9.76,
+      "latest_volume": 769250.0,
+      "latest_date": "2025-09-15"
+    }
+  }
 }

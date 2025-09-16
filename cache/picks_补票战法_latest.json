@@ -1,48 +1,22 @@
 {
   "trade_date": "2025-09-15",
-  "generated_time": "2025-09-15T11:25:04.441244",
+  "generated_time": "2025-09-16T09:20:48.418913",
   "selector_alias": "补票战法",
-  "total_stocks": 3,
+  "total_stocks": 1,
   "selected_stocks": [
-    "600699",
-    "002918",
-    "603536"
+    "600929"
   ],
   "stock_details": {
-    "600699": {
-      "name": "均胜电子",
-      "industry": "C39计算机、通信和其他电子设备制造业",
+    "600929": {
+      "name": "雪天盐业",
+      "industry": "C14食品制造业",
       "market": "上海",
-      "close_price": 21.14,
-      "market_cap": 31710000000.0,
-      "pe_ttm": 28.60815,
-      "pb_mrq": 2.11161,
-      "latest_close": 27.71,
-      "latest_volume": 1373574.0,
-      "latest_date": "2025-09-15"
-    },
-    "002918": {
-      "name": "蒙娜丽莎",
-      "industry": "C30非金属矿物制品业",
-      "market": "深圳",
-      "close_price": 13.23,
-      "market_cap": 10584000000.0,
-      "pe_ttm": 149.70492,
-      "pb_mrq": 1.721558,
-      "latest_close": 13.79,
-      "latest_volume": 80682.0,
-      "latest_date": "2025-09-15"
-    },
-    "603536": {
-      "name": "惠发食品",
-      "industry": "C13农副食品加工业",
-      "market": "上海",
-      "close_price": 9.8,
-      "market_cap": 14700000000.000002,
-      "pe_ttm": -78.433066,
-      "pb_mrq": 5.540455,
-      "latest_close": 11.4,
-      "latest_volume": 467802.0,
+      "close_price": 5.59,
+      "market_cap": 8385000000.0,
+      "pe_ttm": 200.786774,
+      "pb_mrq": 1.21128,
+      "latest_close": 5.83,
+      "latest_volume": 177254.0,
       "latest_date": "2025-09-15"
     }
   }

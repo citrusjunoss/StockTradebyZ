@@ -131,10 +131,10 @@ def parse_stock_results(content: str) -> Dict[str, Any]:
 def get_strategy_icon(strategy_name: str) -> str:
     """根据战法名称返回对应的图标"""
     icons = {
-        "少妇战法": "👩‍💼",
+        "B1战法": "👩‍💼",
         "SuperB1战法": "🚀", 
         "补票战法": "🎫",
-        "TePu战法": "⚡",
+        "上穿60放量战法": "⚡",
         "填坑战法": "🕳️"
     }
     return icons.get(strategy_name, "📈")
@@ -143,10 +143,10 @@ def get_strategy_icon(strategy_name: str) -> str:
 def get_strategy_color(strategy_name: str) -> str:
     """根据战法名称返回对应的颜色"""
     colors = {
-        "少妇战法": "#e74c3c",
+        "B1战法": "#e74c3c",
         "SuperB1战法": "#3498db", 
         "补票战法": "#f39c12",
-        "TePu战法": "#9b59b6",
+        "上穿60放量战法": "#9b59b6",
         "填坑战法": "#27ae60"
     }
     return colors.get(strategy_name, "#34495e")
@@ -236,7 +236,15 @@ def generate_strategy_card(strategy_name: str, data: Dict[str, Any], index: int)
     if data['stocks']:
         stocks_html = ""
         stock_details = data.get('stock_details', {})
-        for stock in data['stocks']:
+        
+        # 按市值降序排序
+        sorted_stocks = sorted(
+            data['stocks'],
+            key=lambda s: stock_details.get(s, {}).get('market_cap') or 0,
+            reverse=True
+        )
+
+        for stock in sorted_stocks:
             stocks_html += generate_stock_item(stock, stock_details)
         
         # 获取行业分布，优先使用缓存中的详细信息
@@ -954,7 +962,7 @@ def generate_index_page(html_dir: Path = None):
         
         <div class="footer">
             <p>🤖 Powered by GitHub Actions</p>
-            <p>每日下午6点自动更新</p>
+            <p>每日下午7点自动更新</p>
         </div>
     </div>
     
