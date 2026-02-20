@@ -1,40 +1,16 @@
 {
   "trade_date": "2026-02-13",
-  "generated_time": "2026-02-19T11:51:06.461979",
+  "generated_time": "2026-02-20T11:44:43.077989",
   "selector_alias": "填坑战法",
   "total_stocks": 5,
   "selected_stocks": [
-    "600763",
-    "002718",
     "002809",
     "601608",
-    "002395"
+    "002395",
+    "002718",
+    "600763"
   ],
   "stock_details": {
-    "600763": {
-      "name": "通策医疗",
-      "industry": "Q84卫生",
-      "market": "上海",
-      "close_price": 46.95,
-      "market_cap": 70425000000.0,
-      "pe_ttm": 40.607434,
-      "pb_mrq": 4.834632,
-      "latest_close": 46.95,
-      "latest_volume": 83900.0,
-      "latest_date": "2026-02-13"
-    },
-    "002718": {
-      "name": "友邦吊顶",
-      "industry": "C41其他制造业",
-      "market": "深圳",
-      "close_price": 66.6,
-      "market_cap": 53279999999.99999,
-      "pe_ttm": -132.219488,
-      "pb_mrq": 9.387389,
-      "latest_close": 66.6,
-      "latest_volume": 18942.0,
-      "latest_date": "2026-02-13"
-    },
     "002809": {
       "name": "红墙股份",
       "industry": "C26化学原料和化学制品制造业",
@@ -69,6 +45,30 @@
       "pb_mrq": 3.461529,
       "latest_close": 19.4,
       "latest_volume": 34750.0,
+      "latest_date": "2026-02-13"
+    },
+    "002718": {
+      "name": "友邦吊顶",
+      "industry": "C41其他制造业",
+      "market": "深圳",
+      "close_price": 66.6,
+      "market_cap": 53279999999.99999,
+      "pe_ttm": -132.219488,
+      "pb_mrq": 9.387389,
+      "latest_close": 66.6,
+      "latest_volume": 18942.0,
+      "latest_date": "2026-02-13"
+    },
+    "600763": {
+      "name": "通策医疗",
+      "industry": "Q84卫生",
+      "market": "上海",
+      "close_price": 46.95,
+      "market_cap": 70425000000.0,
+      "pe_ttm": 40.607434,
+      "pb_mrq": 4.834632,
+      "latest_close": 46.95,
+      "latest_volume": 83900.0,
       "latest_date": "2026-02-13"
     }
   }
