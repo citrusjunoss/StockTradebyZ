@@ -1,23 +1,8 @@
 {
-  "trade_date": "2026-03-06",
-  "generated_time": "2026-03-06T11:41:51.670203",
+  "trade_date": "2026-03-09",
+  "generated_time": "2026-03-09T11:46:39.344390",
   "selector_alias": "补票战法",
-  "total_stocks": 1,
-  "selected_stocks": [
-    "000683"
-  ],
-  "stock_details": {
-    "000683": {
-      "name": "博源化工",
-      "industry": "C26化学原料和化学制品制造业",
-      "market": "深圳",
-      "close_price": 9.6,
-      "market_cap": 7680000000.0,
-      "pe_ttm": 33.390512,
-      "pb_mrq": 2.454667,
-      "latest_close": 9.6,
-      "latest_volume": 656711.0,
-      "latest_date": "2026-03-06"
-    }
-  }
+  "total_stocks": 0,
+  "selected_stocks": [],
+  "stock_details": {}
 }
