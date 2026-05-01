@@ -1,8 +1,8 @@
 {
   "trade_date": "2026-04-30",
-  "generated_time": "2026-04-30T12:21:10.911533",
+  "generated_time": "2026-05-01T12:02:17.955058",
   "selector_alias": "B1战法",
-  "total_stocks": 18,
+  "total_stocks": 19,
   "selected_stocks": [
     "600232",
     "603056",
@@ -10,6 +10,7 @@
     "001230",
     "600724",
     "000430",
+    "603012",
     "000957",
     "603091",
     "603158",
@@ -52,6 +53,11 @@
     "000430": {
       "latest_close": 7.73,
       "latest_volume": 45307.0,
+      "latest_date": "2026-04-30"
+    },
+    "603012": {
+      "latest_close": 8.66,
+      "latest_volume": 103977.0,
       "latest_date": "2026-04-30"
     },
     "000957": {
