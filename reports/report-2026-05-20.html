@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis - 2026-05-20 | StockTradebyZ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo h1 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .date-info {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        .stats-bar {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .strategies-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .strategy-card {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .strategy-header {
+            padding: 25px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+        }
+
+        .strategy-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .strategy-info h3 {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .strategy-meta {
+            display: flex;
+            justify-content: space-between;
+            opacity: 0.9;
+            font-size: 0.85em;
+        }
+
+        .strategy-content {
+            padding: 25px;
+        }
+
+        .stocks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .stocks-container h4 {
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stocks-container h4::before {
+            content: "📈";
+            font-size: 1.2em;
+        }
+
+        .industry-filter-container {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .industry-filter {
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            border-radius: 15px;
+            padding: 4px 12px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .industry-filter:hover {
+            background: #e0e6e8;
+            border-color: #95a5a6;
+        }
+
+        .industry-filter.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+            font-weight: bold;
+        }
+
+        .stocks-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .stock-item {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(52,152,219,0.2);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stock-item:hover {
+            transform: translateX(5px);
+            border-color: #3498db;
+            box-shadow: 0 3px 15px rgba(52,152,219,0.2);
+            background: rgba(52,152,219,0.05);
+        }
+
+        .stock-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .stock-code {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 0.85em;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .stock-name {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95em;
+        }
+
+        .stock-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+
+        .stock-industry {
+            font-size: 0.8em;
+            color: #7f8c8d;
+            background: #ecf0f1;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .stock-price {
+            font-size: 0.85em;
+            color: #27ae60;
+            font-weight: 600;
+            padding: 8px 12px;
+            background-color: rgba(39, 174, 96, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #27ae60;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(39, 174, 96, 0.1);
+        }
+
+        .stock-market {
+            font-size: 0.75em;
+            color: #95a5a6;
+        }
+
+        .no-stocks {
+            color: #95a5a6;
+            font-style: italic;
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 10px;
+            border: 2px dashed #bdc3c7;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin: 50px 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 50px auto;
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            padding: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .strategies-grid {
+                grid-template-columns: 1fr;
+                padding: 0 15px;
+            }
+
+            .stats-bar {
+                padding: 0 15px;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .stocks-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .industry-filter-container {
+                max-width: 100%;
+                font-size: 0.8em;
+            }
+
+            .stocks-list {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 10px;
+            }
+
+            .stock-item {
+                min-height: 100px;
+                padding: 12px;
+            }
+
+            .stock-main {
+                margin-bottom: 6px;
+            }
+
+            .stock-meta {
+                margin-bottom: 6px;
+            }
+
+            .stock-price {
+                font-size: 0.8em;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div style="font-size: 2em;">📊</div>
+                <h1>StockTradebyZ</h1>
+            </div>
+            <div class="date-info">
+                📅 2026-05-20
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="stat-number">5</div>
+            <div class="stat-label">总策略数</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">有效策略</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">101</div>
+            <div class="stat-label">选中股票</div>
+        </div>
+    </div>
+
+    <div class="strategies-grid">
+        
+    <div class="strategy-card" id="strategy-0" style="animation-delay: 0.0s;">
+        <div class="strategy-header" style="background: #f39c12;">
+            <div class="strategy-icon">🎫</div>
+            <div class="strategy-info">
+                <h3>补票战法</h3>
+                <div class="strategy-meta">
+                    <span class="date">📅 2026-05-20</span>
+                    <span class="count">📊 1 支股票</span>
+                </div>
+            </div>
+        </div>
+        <div class="strategy-content">
+            <div class="stocks-container">
+                <div class="stocks-header">
+                    <h4>选中股票</h4>
+                    <div class="industry-filter-container">
+                        <span class="filter-label">行业筛选:</span>
+                        <button class="industry-filter active" onclick="filterByIndustry(this, 'all', 'strategy-0')">全部</button><button class="industry-filter" onclick="filterByIndustry(this, '未知', 'strategy-0')">未知 (1)</button>
+                    </div>
+                </div>
+                <div class="stocks-list">
+                    
+        <div class="stock-item" data-stock="002903" data-industry="未知" onclick="searchStock('002903')">
+            <div class="stock-main">
+                <span class="stock-code">002903</span>
+                <span class="stock-name">股票002903</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 47.18</div>
+        </div>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="strategy-card" id="strategy-1" style="animation-delay: 0.1s;">
+        <div class="strategy-header" style="background: #3498db;">
+            <div class="strategy-icon">🚀</div>
+            <div class="strategy-info">
+                <h3>SuperB1战法</h3>
+                <div class="strategy-meta">
+                    <span class="date">📅 2026-05-20</span>
+                    <span class="count">📊 0 支股票</span>
+                </div>
+            </div>
+        </div>
+        <div class="strategy-content">
+            <div class="stocks-container">
+                <div class="stocks-header">
+                    <h4>选中股票</h4>
+                    <div class="industry-filter-container">
+                        <span class="filter-label">行业筛选:</span>
+                        <span>暂无</span>
+                    </div>
+                </div>
+                <div class="stocks-list">
+                    <div class="no-stocks">暂无选中股票</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="strategy-card" id="strategy-2" style="animation-delay: 0.2s;">
+        <div class="strategy-header" style="background: #9b59b6;">
+            <div class="strategy-icon">⚡</div>
+            <div class="strategy-info">
+                <h3>上穿60放量战法</h3>
+                <div class="strategy-meta">
+                    <span class="date">📅 2026-05-20</span>
+                    <span class="count">📊 36 支股票</span>
+                </div>
+            </div>
+        </div>
+        <div class="strategy-content">
+            <div class="stocks-container">
+                <div class="stocks-header">
+                    <h4>选中股票</h4>
+                    <div class="industry-filter-container">
+                        <span class="filter-label">行业筛选:</span>
+                        <button class="industry-filter active" onclick="filterByIndustry(this, 'all', 'strategy-2')">全部</button><button class="industry-filter" onclick="filterByIndustry(this, '未知', 'strategy-2')">未知 (36)</button>
+                    </div>
+                </div>
+                <div class="stocks-list">
+                    
+        <div class="stock-item" data-stock="605166" data-industry="未知" onclick="searchStock('605166')">
+            <div class="stock-main">
+                <span class="stock-code">605166</span>
+                <span class="stock-name">股票605166</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.34</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600158" data-industry="未知" onclick="searchStock('600158')">
+            <div class="stock-main">
+                <span class="stock-code">600158</span>
+                <span class="stock-name">股票600158</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.85</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002289" data-industry="未知" onclick="searchStock('002289')">
+            <div class="stock-main">
+                <span class="stock-code">002289</span>
+                <span class="stock-name">股票002289</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 40.33</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002823" data-industry="未知" onclick="searchStock('002823')">
+            <div class="stock-main">
+                <span class="stock-code">002823</span>
+                <span class="stock-name">股票002823</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 16.31</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600107" data-industry="未知" onclick="searchStock('600107')">
+            <div class="stock-main">
+                <span class="stock-code">600107</span>
+                <span class="stock-name">股票600107</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 6.56</div>
+        </div>
+        
+        <div class="stock-item" data-stock="605138" data-industry="未知" onclick="searchStock('605138')">
+            <div class="stock-main">
+                <span class="stock-code">605138</span>
+                <span class="stock-name">股票605138</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 7.76</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603110" data-industry="未知" onclick="searchStock('603110')">
+            <div class="stock-main">
+                <span class="stock-code">603110</span>
+                <span class="stock-name">股票603110</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 23.06</div>
+        </div>
+        
+        <div class="stock-item" data-stock="605099" data-industry="未知" onclick="searchStock('605099')">
+            <div class="stock-main">
+                <span class="stock-code">605099</span>
+                <span class="stock-name">股票605099</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 44.53</div>
+        </div>
+        
+        <div class="stock-item" data-stock="605369" data-industry="未知" onclick="searchStock('605369')">
+            <div class="stock-main">
+                <span class="stock-code">605369</span>
+                <span class="stock-name">股票605369</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 20.20</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002136" data-industry="未知" onclick="searchStock('002136')">
+            <div class="stock-main">
+                <span class="stock-code">002136</span>
+                <span class="stock-name">股票002136</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 14.61</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600770" data-industry="未知" onclick="searchStock('600770')">
+            <div class="stock-main">
+                <span class="stock-code">600770</span>
+                <span class="stock-name">股票600770</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 6.97</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603937" data-industry="未知" onclick="searchStock('603937')">
+            <div class="stock-main">
+                <span class="stock-code">603937</span>
+                <span class="stock-name">股票603937</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 15.71</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002120" data-industry="未知" onclick="searchStock('002120')">
+            <div class="stock-main">
+                <span class="stock-code">002120</span>
+                <span class="stock-name">股票002120</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 7.40</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002870" data-industry="未知" onclick="searchStock('002870')">
+            <div class="stock-main">
+                <span class="stock-code">002870</span>
+                <span class="stock-name">股票002870</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 40.35</div>
+        </div>
+        
+        <div class="stock-item" data-stock="605122" data-industry="未知" onclick="searchStock('605122')">
+            <div class="stock-main">
+                <span class="stock-code">605122</span>
+                <span class="stock-name">股票605122</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 14.34</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600887" data-industry="未知" onclick="searchStock('600887')">
+            <div class="stock-main">
+                <span class="stock-code">600887</span>
+                <span class="stock-name">股票600887</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 27.12</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000906" data-industry="未知" onclick="searchStock('000906')">
+            <div class="stock-main">
+                <span class="stock-code">000906</span>
+                <span class="stock-name">股票000906</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 6.35</div>
+        </div>
+        
+        <div class="stock-item" data-stock="001300" data-industry="未知" onclick="searchStock('001300')">
+            <div class="stock-main">
+                <span class="stock-code">001300</span>
+                <span class="stock-name">股票001300</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 17.41</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603318" data-industry="未知" onclick="searchStock('603318')">
+            <div class="stock-main">
+                <span class="stock-code">603318</span>
+                <span class="stock-name">股票603318</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 10.65</div>
+        </div>
+        
+        <div class="stock-item" data-stock="605080" data-industry="未知" onclick="searchStock('605080')">
+            <div class="stock-main">
+                <span class="stock-code">605080</span>
+                <span class="stock-name">股票605080</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 26.15</div>
+        </div>
+        
+        <div class="stock-item" data-stock="001314" data-industry="未知" onclick="searchStock('001314')">
+            <div class="stock-main">
+                <span class="stock-code">001314</span>
+                <span class="stock-name">股票001314</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 54.22</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600540" data-industry="未知" onclick="searchStock('600540')">
+            <div class="stock-main">
+                <span class="stock-code">600540</span>
+                <span class="stock-name">股票600540</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 5.28</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600830" data-industry="未知" onclick="searchStock('600830')">
+            <div class="stock-main">
+                <span class="stock-code">600830</span>
+                <span class="stock-name">股票600830</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 9.75</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002297" data-industry="未知" onclick="searchStock('002297')">
+            <div class="stock-main">
+                <span class="stock-code">002297</span>
+                <span class="stock-name">股票002297</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 23.56</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002606" data-industry="未知" onclick="searchStock('002606')">
+            <div class="stock-main">
+                <span class="stock-code">002606</span>
+                <span class="stock-name">股票002606</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 15.61</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000783" data-industry="未知" onclick="searchStock('000783')">
+            <div class="stock-main">
+                <span class="stock-code">000783</span>
+                <span class="stock-name">股票000783</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 8.41</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002111" data-industry="未知" onclick="searchStock('002111')">
+            <div class="stock-main">
+                <span class="stock-code">002111</span>
+                <span class="stock-name">股票002111</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.17</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603066" data-industry="未知" onclick="searchStock('603066')">
+            <div class="stock-main">
+                <span class="stock-code">603066</span>
+                <span class="stock-name">股票603066</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.70</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603307" data-industry="未知" onclick="searchStock('603307')">
+            <div class="stock-main">
+                <span class="stock-code">603307</span>
+                <span class="stock-name">股票603307</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 43.64</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603721" data-industry="未知" onclick="searchStock('603721')">
+            <div class="stock-main">
+                <span class="stock-code">603721</span>
+                <span class="stock-name">股票603721</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 23.18</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000553" data-industry="未知" onclick="searchStock('000553')">
+            <div class="stock-main">
+                <span class="stock-code">000553</span>
+                <span class="stock-name">股票000553</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 6.71</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000066" data-industry="未知" onclick="searchStock('000066')">
+            <div class="stock-main">
+                <span class="stock-code">000066</span>
+                <span class="stock-name">股票000066</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 20.77</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002235" data-industry="未知" onclick="searchStock('002235')">
+            <div class="stock-main">
+                <span class="stock-code">002235</span>
+                <span class="stock-name">股票002235</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.46</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000848" data-industry="未知" onclick="searchStock('000848')">
+            <div class="stock-main">
+                <span class="stock-code">000848</span>
+                <span class="stock-name">股票000848</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 8.85</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600153" data-industry="未知" onclick="searchStock('600153')">
+            <div class="stock-main">
+                <span class="stock-code">600153</span>
+                <span class="stock-name">股票600153</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 9.77</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603135" data-industry="未知" onclick="searchStock('603135')">
+            <div class="stock-main">
+                <span class="stock-code">603135</span>
+                <span class="stock-name">股票603135</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.87</div>
+        </div>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="strategy-card" id="strategy-3" style="animation-delay: 0.30000000000000004s;">
+        <div class="strategy-header" style="background: #27ae60;">
+            <div class="strategy-icon">🕳️</div>
+            <div class="strategy-info">
+                <h3>填坑战法</h3>
+                <div class="strategy-meta">
+                    <span class="date">📅 2026-05-20</span>
+                    <span class="count">📊 12 支股票</span>
+                </div>
+            </div>
+        </div>
+        <div class="strategy-content">
+            <div class="stocks-container">
+                <div class="stocks-header">
+                    <h4>选中股票</h4>
+                    <div class="industry-filter-container">
+                        <span class="filter-label">行业筛选:</span>
+                        <button class="industry-filter active" onclick="filterByIndustry(this, 'all', 'strategy-3')">全部</button><button class="industry-filter" onclick="filterByIndustry(this, '未知', 'strategy-3')">未知 (12)</button>
+                    </div>
+                </div>
+                <div class="stocks-list">
+                    
+        <div class="stock-item" data-stock="002763" data-industry="未知" onclick="searchStock('002763')">
+            <div class="stock-main">
+                <span class="stock-code">002763</span>
+                <span class="stock-name">股票002763</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 8.66</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600770" data-industry="未知" onclick="searchStock('600770')">
+            <div class="stock-main">
+                <span class="stock-code">600770</span>
+                <span class="stock-name">股票600770</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 6.97</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603937" data-industry="未知" onclick="searchStock('603937')">
+            <div class="stock-main">
+                <span class="stock-code">603937</span>
+                <span class="stock-name">股票603937</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 15.71</div>
+        </div>
+        
+        <div class="stock-item" data-stock="605122" data-industry="未知" onclick="searchStock('605122')">
+            <div class="stock-main">
+                <span class="stock-code">605122</span>
+                <span class="stock-name">股票605122</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 14.34</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600203" data-industry="未知" onclick="searchStock('600203')">
+            <div class="stock-main">
+                <span class="stock-code">600203</span>
+                <span class="stock-name">股票600203</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 12.46</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603091" data-industry="未知" onclick="searchStock('603091')">
+            <div class="stock-main">
+                <span class="stock-code">603091</span>
+                <span class="stock-name">股票603091</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 83.26</div>
+        </div>
+        
+        <div class="stock-item" data-stock="605080" data-industry="未知" onclick="searchStock('605080')">
+            <div class="stock-main">
+                <span class="stock-code">605080</span>
+                <span class="stock-name">股票605080</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 26.15</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603126" data-industry="未知" onclick="searchStock('603126')">
+            <div class="stock-main">
+                <span class="stock-code">603126</span>
+                <span class="stock-name">股票603126</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 8.39</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603721" data-industry="未知" onclick="searchStock('603721')">
+            <div class="stock-main">
+                <span class="stock-code">603721</span>
+                <span class="stock-name">股票603721</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 23.18</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000553" data-industry="未知" onclick="searchStock('000553')">
+            <div class="stock-main">
+                <span class="stock-code">000553</span>
+                <span class="stock-name">股票000553</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 6.71</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600135" data-industry="未知" onclick="searchStock('600135')">
+            <div class="stock-main">
+                <span class="stock-code">600135</span>
+                <span class="stock-name">股票600135</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.09</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600103" data-industry="未知" onclick="searchStock('600103')">
+            <div class="stock-main">
+                <span class="stock-code">600103</span>
+                <span class="stock-name">股票600103</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 4.50</div>
+        </div>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="strategy-card" id="strategy-4" style="animation-delay: 0.4s;">
+        <div class="strategy-header" style="background: #e74c3c;">
+            <div class="strategy-icon">👩‍💼</div>
+            <div class="strategy-info">
+                <h3>B1战法</h3>
+                <div class="strategy-meta">
+                    <span class="date">📅 2026-05-20</span>
+                    <span class="count">📊 52 支股票</span>
+                </div>
+            </div>
+        </div>
+        <div class="strategy-content">
+            <div class="stocks-container">
+                <div class="stocks-header">
+                    <h4>选中股票</h4>
+                    <div class="industry-filter-container">
+                        <span class="filter-label">行业筛选:</span>
+                        <button class="industry-filter active" onclick="filterByIndustry(this, 'all', 'strategy-4')">全部</button><button class="industry-filter" onclick="filterByIndustry(this, '未知', 'strategy-4')">未知 (52)</button>
+                    </div>
+                </div>
+                <div class="stocks-list">
+                    
+        <div class="stock-item" data-stock="603356" data-industry="未知" onclick="searchStock('603356')">
+            <div class="stock-main">
+                <span class="stock-code">603356</span>
+                <span class="stock-name">股票603356</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 19.12</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603335" data-industry="未知" onclick="searchStock('603335')">
+            <div class="stock-main">
+                <span class="stock-code">603335</span>
+                <span class="stock-name">股票603335</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 7.20</div>
+        </div>
+        
+        <div class="stock-item" data-stock="605166" data-industry="未知" onclick="searchStock('605166')">
+            <div class="stock-main">
+                <span class="stock-code">605166</span>
+                <span class="stock-name">股票605166</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.34</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002763" data-industry="未知" onclick="searchStock('002763')">
+            <div class="stock-main">
+                <span class="stock-code">002763</span>
+                <span class="stock-name">股票002763</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 8.66</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600727" data-industry="未知" onclick="searchStock('600727')">
+            <div class="stock-main">
+                <span class="stock-code">600727</span>
+                <span class="stock-name">股票600727</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 8.12</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600202" data-industry="未知" onclick="searchStock('600202')">
+            <div class="stock-main">
+                <span class="stock-code">600202</span>
+                <span class="stock-name">股票600202</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 6.20</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002289" data-industry="未知" onclick="searchStock('002289')">
+            <div class="stock-main">
+                <span class="stock-code">002289</span>
+                <span class="stock-name">股票002289</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 40.33</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002875" data-industry="未知" onclick="searchStock('002875')">
+            <div class="stock-main">
+                <span class="stock-code">002875</span>
+                <span class="stock-name">股票002875</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 22.96</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002823" data-industry="未知" onclick="searchStock('002823')">
+            <div class="stock-main">
+                <span class="stock-code">002823</span>
+                <span class="stock-name">股票002823</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 16.31</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600107" data-industry="未知" onclick="searchStock('600107')">
+            <div class="stock-main">
+                <span class="stock-code">600107</span>
+                <span class="stock-name">股票600107</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 6.56</div>
+        </div>
+        
+        <div class="stock-item" data-stock="601168" data-industry="未知" onclick="searchStock('601168')">
+            <div class="stock-main">
+                <span class="stock-code">601168</span>
+                <span class="stock-name">股票601168</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 30.08</div>
+        </div>
+        
+        <div class="stock-item" data-stock="605138" data-industry="未知" onclick="searchStock('605138')">
+            <div class="stock-main">
+                <span class="stock-code">605138</span>
+                <span class="stock-name">股票605138</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 7.76</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603110" data-industry="未知" onclick="searchStock('603110')">
+            <div class="stock-main">
+                <span class="stock-code">603110</span>
+                <span class="stock-name">股票603110</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 23.06</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603409" data-industry="未知" onclick="searchStock('603409')">
+            <div class="stock-main">
+                <span class="stock-code">603409</span>
+                <span class="stock-name">股票603409</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 42.66</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002136" data-industry="未知" onclick="searchStock('002136')">
+            <div class="stock-main">
+                <span class="stock-code">002136</span>
+                <span class="stock-name">股票002136</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 14.61</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002715" data-industry="未知" onclick="searchStock('002715')">
+            <div class="stock-main">
+                <span class="stock-code">002715</span>
+                <span class="stock-name">股票002715</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 17.24</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600561" data-industry="未知" onclick="searchStock('600561')">
+            <div class="stock-main">
+                <span class="stock-code">600561</span>
+                <span class="stock-name">股票600561</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 6.86</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603600" data-industry="未知" onclick="searchStock('603600')">
+            <div class="stock-main">
+                <span class="stock-code">603600</span>
+                <span class="stock-name">股票603600</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.74</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002762" data-industry="未知" onclick="searchStock('002762')">
+            <div class="stock-main">
+                <span class="stock-code">002762</span>
+                <span class="stock-name">股票002762</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 8.77</div>
+        </div>
+        
+        <div class="stock-item" data-stock="605122" data-industry="未知" onclick="searchStock('605122')">
+            <div class="stock-main">
+                <span class="stock-code">605122</span>
+                <span class="stock-name">股票605122</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 14.34</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600203" data-industry="未知" onclick="searchStock('600203')">
+            <div class="stock-main">
+                <span class="stock-code">600203</span>
+                <span class="stock-name">股票600203</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 12.46</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002559" data-industry="未知" onclick="searchStock('002559')">
+            <div class="stock-main">
+                <span class="stock-code">002559</span>
+                <span class="stock-name">股票002559</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.10</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000906" data-industry="未知" onclick="searchStock('000906')">
+            <div class="stock-main">
+                <span class="stock-code">000906</span>
+                <span class="stock-name">股票000906</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 6.35</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603165" data-industry="未知" onclick="searchStock('603165')">
+            <div class="stock-main">
+                <span class="stock-code">603165</span>
+                <span class="stock-name">股票603165</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 17.80</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600497" data-industry="未知" onclick="searchStock('600497')">
+            <div class="stock-main">
+                <span class="stock-code">600497</span>
+                <span class="stock-name">股票600497</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 9.97</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002970" data-industry="未知" onclick="searchStock('002970')">
+            <div class="stock-main">
+                <span class="stock-code">002970</span>
+                <span class="stock-name">股票002970</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 73.10</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603112" data-industry="未知" onclick="searchStock('603112')">
+            <div class="stock-main">
+                <span class="stock-code">603112</span>
+                <span class="stock-name">股票603112</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 21.64</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603489" data-industry="未知" onclick="searchStock('603489')">
+            <div class="stock-main">
+                <span class="stock-code">603489</span>
+                <span class="stock-name">股票603489</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 37.63</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603091" data-industry="未知" onclick="searchStock('603091')">
+            <div class="stock-main">
+                <span class="stock-code">603091</span>
+                <span class="stock-name">股票603091</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 83.26</div>
+        </div>
+        
+        <div class="stock-item" data-stock="001387" data-industry="未知" onclick="searchStock('001387')">
+            <div class="stock-main">
+                <span class="stock-code">001387</span>
+                <span class="stock-name">股票001387</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 14.19</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002216" data-industry="未知" onclick="searchStock('002216')">
+            <div class="stock-main">
+                <span class="stock-code">002216</span>
+                <span class="stock-name">股票002216</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 13.69</div>
+        </div>
+        
+        <div class="stock-item" data-stock="001314" data-industry="未知" onclick="searchStock('001314')">
+            <div class="stock-main">
+                <span class="stock-code">001314</span>
+                <span class="stock-name">股票001314</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 54.22</div>
+        </div>
+        
+        <div class="stock-item" data-stock="600540" data-industry="未知" onclick="searchStock('600540')">
+            <div class="stock-main">
+                <span class="stock-code">600540</span>
+                <span class="stock-name">股票600540</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 5.28</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002805" data-industry="未知" onclick="searchStock('002805')">
+            <div class="stock-main">
+                <span class="stock-code">002805</span>
+                <span class="stock-name">股票002805</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 23.58</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603025" data-industry="未知" onclick="searchStock('603025')">
+            <div class="stock-main">
+                <span class="stock-code">603025</span>
+                <span class="stock-name">股票603025</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 16.40</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000301" data-industry="未知" onclick="searchStock('000301')">
+            <div class="stock-main">
+                <span class="stock-code">000301</span>
+                <span class="stock-name">股票000301</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 12.72</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002606" data-industry="未知" onclick="searchStock('002606')">
+            <div class="stock-main">
+                <span class="stock-code">002606</span>
+                <span class="stock-name">股票002606</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 15.61</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000783" data-industry="未知" onclick="searchStock('000783')">
+            <div class="stock-main">
+                <span class="stock-code">000783</span>
+                <span class="stock-name">股票000783</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 8.41</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603118" data-industry="未知" onclick="searchStock('603118')">
+            <div class="stock-main">
+                <span class="stock-code">603118</span>
+                <span class="stock-name">股票603118</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 15.58</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002463" data-industry="未知" onclick="searchStock('002463')">
+            <div class="stock-main">
+                <span class="stock-code">002463</span>
+                <span class="stock-name">股票002463</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 103.58</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603066" data-industry="未知" onclick="searchStock('603066')">
+            <div class="stock-main">
+                <span class="stock-code">603066</span>
+                <span class="stock-name">股票603066</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.70</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603307" data-industry="未知" onclick="searchStock('603307')">
+            <div class="stock-main">
+                <span class="stock-code">603307</span>
+                <span class="stock-name">股票603307</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 43.64</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603721" data-industry="未知" onclick="searchStock('603721')">
+            <div class="stock-main">
+                <span class="stock-code">603721</span>
+                <span class="stock-name">股票603721</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 23.18</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603056" data-industry="未知" onclick="searchStock('603056')">
+            <div class="stock-main">
+                <span class="stock-code">603056</span>
+                <span class="stock-name">股票603056</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 18.85</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603130" data-industry="未知" onclick="searchStock('603130')">
+            <div class="stock-main">
+                <span class="stock-code">603130</span>
+                <span class="stock-name">股票603130</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 47.43</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603298" data-industry="未知" onclick="searchStock('603298')">
+            <div class="stock-main">
+                <span class="stock-code">603298</span>
+                <span class="stock-name">股票603298</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 27.33</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000066" data-industry="未知" onclick="searchStock('000066')">
+            <div class="stock-main">
+                <span class="stock-code">000066</span>
+                <span class="stock-name">股票000066</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 20.77</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603680" data-industry="未知" onclick="searchStock('603680')">
+            <div class="stock-main">
+                <span class="stock-code">603680</span>
+                <span class="stock-name">股票603680</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 14.20</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603839" data-industry="未知" onclick="searchStock('603839')">
+            <div class="stock-main">
+                <span class="stock-code">603839</span>
+                <span class="stock-name">股票603839</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 7.91</div>
+        </div>
+        
+        <div class="stock-item" data-stock="002998" data-industry="未知" onclick="searchStock('002998')">
+            <div class="stock-main">
+                <span class="stock-code">002998</span>
+                <span class="stock-name">股票002998</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 9.34</div>
+        </div>
+        
+        <div class="stock-item" data-stock="000848" data-industry="未知" onclick="searchStock('000848')">
+            <div class="stock-main">
+                <span class="stock-code">000848</span>
+                <span class="stock-name">股票000848</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 8.85</div>
+        </div>
+        
+        <div class="stock-item" data-stock="603135" data-industry="未知" onclick="searchStock('603135')">
+            <div class="stock-main">
+                <span class="stock-code">603135</span>
+                <span class="stock-name">股票603135</span>
+            </div>
+            <div class="stock-meta">
+                <span class="stock-industry">未知</span>
+                <span class="stock-market">未知</span>
+                </div>
+            <div class="stock-price">💰 11.87</div>
+        </div>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+
+    <div class="footer">
+        <p>仅供参考，不提供任何投资建议</p>
+        <p>个股 [PE][市值] 等非K线数据存在一周的数据延迟</p>
+        <p>🤖 Generated by GitHub Actions | Last Updated: 2026-05-20 17:31:06 UTC</p>
+    </div>
+
+    <script>
+        function searchStock(code) {
+            // 根据股票代码判断市场
+            let market = 'SH';  // 默认上海
+            if (code.startsWith('00') || code.startsWith('30')) {
+                market = 'SZ';  // 深圳
+            } else if (code.startsWith('60') || code.startsWith('68') || code.startsWith('9')) {
+                market = 'SH';  // 上海
+            }
+
+            window.open(`https://xueqiu.com/S/${market}${code}`, '_blank');
+        }
+
+        function filterByIndustry(button, industry, cardId) {
+            const card = document.getElementById(cardId);
+            if (!card) return;
+
+            // Handle button active state
+            const filters = card.querySelectorAll('.industry-filter');
+            filters.forEach(filter => filter.classList.remove('active'));
+            button.classList.add('active');
+
+            // Filter stock list
+            const stockList = card.querySelector('.stocks-list');
+            const stocks = stockList.querySelectorAll('.stock-item');
+
+            stocks.forEach(stock => {
+                if (industry === 'all' || stock.dataset.industry === industry) {
+                    stock.style.display = 'flex';
+                } else {
+                    stock.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
