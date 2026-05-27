@@ -1,16 +1,8 @@
 {
-  "trade_date": "2026-05-26",
-  "generated_time": "2026-05-26T14:54:32.245335",
+  "trade_date": "2026-05-27",
+  "generated_time": "2026-05-27T15:36:55.923680",
   "selector_alias": "补票战法",
-  "total_stocks": 1,
-  "selected_stocks": [
-    "002079"
-  ],
-  "stock_details": {
-    "002079": {
-      "latest_close": 12.87,
-      "latest_volume": 594310.0,
-      "latest_date": "2026-05-26"
-    }
-  }
+  "total_stocks": 0,
+  "selected_stocks": [],
+  "stock_details": {}
 }
