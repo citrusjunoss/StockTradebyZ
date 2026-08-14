@@ -1,49 +1,34 @@
 {
   "trade_date": "2026-08-10",
-  "generated_time": "2026-08-13T12:29:32.111734",
+  "generated_time": "2026-08-14T12:27:55.649751",
   "selector_alias": "B1战法",
   "total_stocks": 15,
   "selected_stocks": [
-    "600690",
-    "002003",
-    "601009",
-    "603338",
-    "601166",
-    "000651",
-    "601000",
-    "000001",
-    "601728",
-    "000598",
-    "601766",
     "601528",
-    "603056",
     "603766",
-    "600031"
+    "000651",
+    "601166",
+    "601000",
+    "000598",
+    "601728",
+    "600690",
+    "603056",
+    "600031",
+    "601009",
+    "601766",
+    "000001",
+    "002003",
+    "603338"
   ],
   "stock_details": {
-    "600690": {
-      "latest_close": 22.25,
-      "latest_volume": 447050.0,
+    "601528": {
+      "latest_close": 4.92,
+      "latest_volume": 204621.0,
       "latest_date": "2026-08-10"
     },
-    "002003": {
-      "latest_close": 10.35,
-      "latest_volume": 100080.0,
-      "latest_date": "2026-08-10"
-    },
-    "601009": {
-      "latest_close": 11.25,
-      "latest_volume": 386372.0,
-      "latest_date": "2026-08-10"
-    },
-    "603338": {
-      "latest_close": 57.37,
-      "latest_volume": 42887.0,
-      "latest_date": "2026-08-10"
-    },
-    "601166": {
-      "latest_close": 18.34,
-      "latest_volume": 636905.0,
+    "603766": {
+      "latest_close": 13.87,
+      "latest_volume": 272666.0,
       "latest_date": "2026-08-10"
     },
     "000651": {
@@ -51,19 +36,14 @@
       "latest_volume": 417269.0,
       "latest_date": "2026-08-10"
     },
+    "601166": {
+      "latest_close": 18.34,
+      "latest_volume": 636905.0,
+      "latest_date": "2026-08-10"
+    },
     "601000": {
       "latest_close": 4.64,
       "latest_volume": 401945.0,
-      "latest_date": "2026-08-10"
-    },
-    "000001": {
-      "latest_close": 11.29,
-      "latest_volume": 889060.0,
-      "latest_date": "2026-08-10"
-    },
-    "601728": {
-      "latest_close": 6.27,
-      "latest_volume": 1316179.0,
       "latest_date": "2026-08-10"
     },
     "000598": {
@@ -71,14 +51,14 @@
       "latest_volume": 248838.0,
       "latest_date": "2026-08-10"
     },
-    "601766": {
-      "latest_close": 5.97,
-      "latest_volume": 1457264.0,
+    "601728": {
+      "latest_close": 6.27,
+      "latest_volume": 1316179.0,
       "latest_date": "2026-08-10"
     },
-    "601528": {
-      "latest_close": 4.92,
-      "latest_volume": 204621.0,
+    "600690": {
+      "latest_close": 22.25,
+      "latest_volume": 447050.0,
       "latest_date": "2026-08-10"
     },
     "603056": {
@@ -86,14 +66,34 @@
       "latest_volume": 5.877471754111438e-39,
       "latest_date": "2026-03-30"
     },
-    "603766": {
-      "latest_close": 13.87,
-      "latest_volume": 272666.0,
-      "latest_date": "2026-08-10"
-    },
     "600031": {
       "latest_close": 19.74,
       "latest_volume": 682099.0,
+      "latest_date": "2026-08-10"
+    },
+    "601009": {
+      "latest_close": 11.25,
+      "latest_volume": 386372.0,
+      "latest_date": "2026-08-10"
+    },
+    "601766": {
+      "latest_close": 5.97,
+      "latest_volume": 1457264.0,
+      "latest_date": "2026-08-10"
+    },
+    "000001": {
+      "latest_close": 11.29,
+      "latest_volume": 889060.0,
+      "latest_date": "2026-08-10"
+    },
+    "002003": {
+      "latest_close": 10.35,
+      "latest_volume": 100080.0,
+      "latest_date": "2026-08-10"
+    },
+    "603338": {
+      "latest_close": 57.37,
+      "latest_volume": 42887.0,
       "latest_date": "2026-08-10"
     }
   }
