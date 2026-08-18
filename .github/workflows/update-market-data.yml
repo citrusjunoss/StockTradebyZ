@@ -4,7 +4,7 @@ on:
   # 定时触发
   schedule:
     # 北京时间周日早上2点执行更新任务 (UTC时间周六18:00)
-    - cron: '0 18 * * 6'
+    # - cron: '0 18 * * 6'
   
   # 允许手动触发
   workflow_dispatch:
